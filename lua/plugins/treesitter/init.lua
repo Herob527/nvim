@@ -5,5 +5,4 @@ require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true,
 	},
-	tree_docs = { enable = true },
 })

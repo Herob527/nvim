@@ -52,19 +52,23 @@ end
 
 local console = sn(
 	"con",
-	fmt([[ console.log("[{function_name}]",{})]], {
+	fmt([[ console.log("[{function_name} - {var}]",{var})]], {
 		function_name = d(1, function(args)
 			--- @type string
+			local search = args[1][1]
 			local ts_node = ts.get_node()
 			local function_root = seek_function_root(
 				ts_node,
 				{ "function_declaration", "variable_declarator", "method_definition", "field_definition" }
 			)
+			vim.print(search)
 			local data = function_root ~= nil and get_data(function_root) or ""
 			local output = t(data)
 			return s(nil, { output })
-		end),
-		i(0),
+		end, { 2 }),
+		var = i(2),
+	}, {
+		repeat_duplicates = true,
 	})
 )
 
