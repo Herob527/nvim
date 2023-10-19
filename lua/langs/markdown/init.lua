@@ -10,6 +10,7 @@ M.mason = {}
 
 M.mason.lspconfig = {
 	"marksman",
+	"mdx_analyzer",
 }
 
 M.mason.null_ls = {
@@ -17,7 +18,10 @@ M.mason.null_ls = {
 }
 
 M.null_ls = {
-	formatting = { { program = "markdownlint" } },
+	formatting = {
+		{ program = "markdownlint" },
+		{ program = "prettierd", with = { filetypes = { "markdown", "mdx" } } },
+	},
 	diagnostics = { { program = "markdownlint" } },
 }
 return M

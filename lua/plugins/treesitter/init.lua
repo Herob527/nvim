@@ -45,6 +45,7 @@ M.init = function()
 		},
 		tree_docs = { enable = true },
 	})
+	vim.treesitter.language.register("markdown", "mdx")
 end
 
 M.config = {
