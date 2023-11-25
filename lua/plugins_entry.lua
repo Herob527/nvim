@@ -35,6 +35,7 @@ local lazyinstalls = {
 	require("plugins.nvim_comment.init").config,
 	require("plugins.mini.cursorword").config,
 	require("plugins.which_key.init").config,
+	require("plugins.efm.init").config,
 	{
 		"j-hui/fidget.nvim",
 		tag = "legacy",

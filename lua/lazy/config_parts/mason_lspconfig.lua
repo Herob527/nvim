@@ -1,3 +1,8 @@
+local languages = {
+	typescript = { eslint_d, prettier_d },
+	lua = { stylua },
+}
+
 local mason = {
 	"williamboman/mason.nvim",
 	event = "VeryLazy",
@@ -79,8 +84,22 @@ local lspconfig = {
 			vim.schedule(function()
 				local params = {
 					capabilities = capabilities,
-					settings = lsp_data.settings,
 				}
+				if lsp_data.settings then
+					params.settings = lsp_data.settings
+				end
+				if lsp_data.filetypes then
+					params.filetypes = lsp_data.filetypes
+				end
+				if lsp_data.on_attach then
+					params.on_attach = lsp_data.on_attach
+				end
+				if lsp_data.init_options then
+					params.init_options = {
+						documentFormatting = true,
+						documentRangeFormatting = true,
+					}
+				end
 				lspconfig[lsp_data.lsp].setup(params)
 			end)
 		end

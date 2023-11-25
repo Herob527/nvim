@@ -82,10 +82,10 @@ local null_ls = {
 			end
 		end
 
-		null_ls.setup({
-			sources = sources,
-			on_attach = require("lsp-format").on_attach,
-		})
+		-- null_ls.setup({
+		-- 	sources = sources,
+		-- 	on_attach = require("lsp-format").on_attach,
+		-- })
 	end,
 	dependencies = {
 		mason_null_ls,
