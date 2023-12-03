@@ -16,5 +16,6 @@ local langs_table = {
 	astro = require("langs.astro.init"),
 	ruby = require("langs.ruby.init"),
 	prose = require("langs.prose.init"),
+	prisma = require("langs.prisma.init"),
 }
 return langs_table
