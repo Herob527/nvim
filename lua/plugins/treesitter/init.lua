@@ -13,10 +13,10 @@ M.init = function()
 	local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
 	vim.cmd([[
-augroup filetypedetect
-  autocmd! BufRead,BufNewFile,BufEnter *.groq setfiletype groq
-augroup END
-]])
+	augroup filetypedetect
+	  autocmd! BufRead,BufNewFile,BufEnter *.groq setfiletype groq
+	augroup END
+	]])
 	parser_config.groq = {
 		install_info = {
 			url = "~/Desktop/Projects/tree-sitter-groq", -- local path or git repo
