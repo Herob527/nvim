@@ -71,15 +71,15 @@ local lspconfig = {
 	event = "VeryLazy",
 	config = function()
 		local lspconfig = require("lspconfig")
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		local iter = lsp_config_iterator()
-
+		local coq = require("coq")
+		local capabilities = coq.lsp_ensure_capabilities().capabilities
 		for _, lsp_data in iter do
 			vim.schedule(function()
 				local params = {
-					capabilities = capabilities,
 					settings = lsp_data.settings,
+					capabilities = capabilities,
 				}
 				lspconfig[lsp_data.lsp].setup(params)
 			end)

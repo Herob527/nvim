@@ -92,6 +92,9 @@ local null_ls = {
 		{
 			"lukas-reineke/lsp-format.nvim",
 		},
+		{
+			"L3MON4D3/LuaSnip",
+		},
 		{ "jose-elias-alvarez/typescript.nvim" },
 	},
 }
