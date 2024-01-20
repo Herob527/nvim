@@ -14,7 +14,6 @@ local langs_table = {
 	sh = require("langs.sh.init"),
 	dockerfile = require("langs.dockerfile.init"),
 	astro = require("langs.astro.init"),
-	ruby = require("langs.ruby.init"),
 	prose = require("langs.prose.init"),
 }
 return langs_table
