@@ -11,8 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local mason = require("lazy.config_parts.language")
-
 local lazyinstalls = {
 	require("plugins.colorscheme.init").config,
 	require("plugins.treesitter.init").config,
@@ -24,7 +22,7 @@ local lazyinstalls = {
 	require("plugins.lazygit.init").config,
 	require("plugins.wilder.init").config,
 	require("plugins.refactoring.init").config,
-	require("plugins.mason.dap").config,
+	-- require("plugins.mason.dap").config,
 	require("plugins.cmp.init").config,
 	require("plugins.lualine.init").config,
 	require("plugins.bufferline.init").config,
@@ -37,13 +35,12 @@ local lazyinstalls = {
 	require("plugins.which_key.init").config,
 	{
 		"j-hui/fidget.nvim",
-		tag = "legacy",
 		event = "LspAttach",
 		opts = {
 			-- options
 		},
 	},
-	mason,
+	-- mason,
 }
 
 local opts = {
