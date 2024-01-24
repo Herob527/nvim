@@ -31,7 +31,6 @@ local lazyinstalls = {
 	require("plugins.spectre.init").config,
 	require("plugins.code_action_menu.init").config,
 	require("plugins.nvim_comment.init").config,
-	require("plugins.mini.cursorword").config,
 	require("plugins.which_key.init").config,
 	{
 		"j-hui/fidget.nvim",
