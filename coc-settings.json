@@ -1,0 +1,30 @@
+{
+  "suggest.noselect": false,
+  "suggest.removeDuplicateItems": true,
+  "codeLens.enable": false,
+  "codeLens.separator": "🔍",
+  "coc.preferences.jumpCommand": "drop",
+  "coc.preferences.rootPatterns": [".git", ".vscode"],
+  "coc.preferences.formatOnSave": true,
+  "diagnostic.checkCurrentLine": false,
+  "diagnostic.messageTarget": "float",
+  "diagnostic.separateRelatedInformationAsDiagnostics": false,
+  "diagnostic.virtualText": false,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "[python]": {
+    "coc.preferences.formatOnSaveTimeout": 5000,
+    "inlayHint.enable": false,
+    "inlayHint.enableParameter": false
+  },
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.formatting.provider": "black",
+  "javascript.referencesCodeLens.enable": true,
+  "javascript.implementationsCodeLens.enable": true,
+  "typescript.referencesCodeLens.enable": true,
+  "typescript.implementationsCodeLens.enable": true,
+  "Lua.telemetry.enable": false,
+  "Lua.window.statusBar": false
+}
