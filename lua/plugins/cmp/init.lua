@@ -184,7 +184,7 @@ end
 M.config = {
 	"neoclide/coc.nvim",
 	build = "npm ci",
-	event = "InsertCharPre",
+	event = "VeryLazy",
 	dependencies = {},
 	config = function()
 		M.init()
