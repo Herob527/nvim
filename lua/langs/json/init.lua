@@ -5,11 +5,6 @@ M.treesitter = { "json" }
 M.lspconfig = {
 	{
 		lsp = "jsonls",
-		settings = {
-			json = {
-				schemas = require("schemastore").json.schemas(),
-			},
-		},
 	},
 }
 
