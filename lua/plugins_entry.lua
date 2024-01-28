@@ -24,7 +24,7 @@ local lazyinstalls = {
 	require("plugins.lazygit.init").config,
 	require("plugins.wilder.init").config,
 	require("plugins.refactoring.init").config,
-	require("plugins.mason.dap").config,
+	-- require("plugins.mason.dap").config,
 	require("plugins.cmp.init").config,
 	require("plugins.lualine.init").config,
 	require("plugins.bufferline.init").config,
