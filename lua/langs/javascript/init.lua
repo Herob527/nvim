@@ -3,7 +3,7 @@ local M = {}
 M.treesitter = { "javascript", "typescript", "tsx", "jsdoc" }
 
 M.lspconfig = {
-	{ lsp = "tsserver" },
+	{},
 }
 
 M.mason = {}
@@ -26,8 +26,6 @@ M.null_ls = {
 	},
 	diagnostics = { { program = "eslint_d" } },
 	code_actions = { { program = "eslint_d" } },
-	rest = {
-
-	},
+	rest = {},
 }
 return M

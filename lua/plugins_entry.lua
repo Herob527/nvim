@@ -43,6 +43,16 @@ local lazyinstalls = {
 			-- options
 		},
 	},
+	{
+		"pmizio/typescript-tools.nvim",
+		event = "VeryLazy",
+		ft = { "typescript", "javascript", "tsx", "typescriptreact", "javascriptreact" },
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+		config = function()
+			require("typescript-tools").setup({})
+		end,
+	},
 	mason,
 }
 
