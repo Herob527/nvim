@@ -76,13 +76,13 @@ local lspconfig = {
 		local iter = lsp_config_iterator()
 
 		for _, lsp_data in iter do
-			vim.schedule(function()
+			if lsp_data.lsp then
 				local params = {
 					capabilities = capabilities,
 					settings = lsp_data.settings,
 				}
 				lspconfig[lsp_data.lsp].setup(params)
-			end)
+			end
 		end
 	end,
 }
