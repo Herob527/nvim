@@ -5,7 +5,11 @@ M.launch_ui = function()
 	local Popup = require("nui.popup")
 
 	local popup_two = Popup({
-		focusable = true,
+		focusable = false,
+		buf_options = {
+			modifiable = true,
+			readonly = true,
+		},
 		zindex = 50,
 		mode = "action",
 		relative = "editor",
