@@ -13,8 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 local mason = require("lazy.config_parts.language")
 
-require("astro_utils.init").setup()
-
 local lazyinstalls = {
 	require("plugins.colorscheme.init").config,
 	require("plugins.treesitter.init").config,
@@ -44,6 +42,11 @@ local lazyinstalls = {
 		opts = {
 			-- options
 		},
+	},
+	{
+		dir = "astro_utils",
+		event = "VeryLazy",
+		config = require("astro_utils.init").setup,
 	},
 	{
 		"pmizio/typescript-tools.nvim",
