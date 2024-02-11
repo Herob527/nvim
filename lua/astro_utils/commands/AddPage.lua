@@ -1,47 +1,39 @@
-function string:endswith(suffix)
-	return self:sub(-#suffix) == suffix
-end
+local M = {}
 
-local function lines(str)
-	local result = {}
-	for line in str:gmatch("[^\n]+") do
-		table.insert(result, line)
-	end
-	return result
-end
+local templates = {
+	[[
+---
+interface Props {
 
-local function split_args(str)
-	local result = {}
-	for line in str:gmatch("[^ ]+") do
-		table.insert(result, line)
-	end
-	return result
-end
+}
+---]],
+}
 
 local function create_page(name)
 	if name == nil or name == "" then
 		error("No name provided")
 		return
 	end
+	local utils = require("astro_utils.utils")
+	local lines = utils.lines
+	local endswith = utils.endswith
 	local cwd = vim.fn.getcwd()
 	local page_path = cwd .. "/src/pages/" .. name
-	if not page_path:endswith(".astro") then
+	if not endswith(page_path, ".astro") then
 		page_path = page_path .. ".astro"
 	end
 
-	local dummy_content = [[
----
-interface Props {
-
-}
----]]
+	local dummy_content = templates[1]
 	vim.fn.delete(page_path)
 	vim.fn.writefile(lines(dummy_content), page_path, "a")
 end
 
-vim.api.nvim_create_user_command("AddPage", function(opts)
+M.func = function(opts)
 	local cwd = vim.fn.getcwd()
 	local astro_config_path = cwd .. "/astro.config.mjs"
+
+	local utils = require("astro_utils.utils")
+	local split_args = utils.split_args
 	local args = split_args(opts.args)
 	if #args > 1 then
 		error("Too many arguments. This function accepts one")
@@ -59,6 +51,6 @@ vim.api.nvim_create_user_command("AddPage", function(opts)
 			create_page(page_name)
 		end)
 	end
-end, { nargs = "?" })
+end
 
-vim.keymap.set("n", "<leader>ap", "<cmd>AddPage<cr>")
+return M
