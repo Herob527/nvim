@@ -47,6 +47,7 @@ local lazyinstalls = {
 		dir = "astro_utils",
 		event = "VeryLazy",
 		config = require("astro_utils.init").setup,
+		dependencies = { "MunifTanjim/nui.nvim" },
 	},
 	{
 		"pmizio/typescript-tools.nvim",
