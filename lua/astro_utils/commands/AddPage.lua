@@ -9,6 +9,13 @@ interface Props {
 ---]],
 }
 
+local function write_page(path, template)
+	local utils = require("astro_utils.utils")
+	local lines = utils.lines
+	vim.fn.delete(path)
+	vim.fn.writefile(lines(template), path, "a")
+end
+
 --- @param name string
 local function create_page(name)
 	if name == nil or name == "" then
@@ -16,30 +23,44 @@ local function create_page(name)
 		return
 	end
 	local utils = require("astro_utils.utils")
-	local lines = utils.lines
 	local endswith = utils.endswith
 	local cwd = vim.fn.getcwd()
-	local page_path = cwd .. "/src/pages/" .. name
+	local pages_path = cwd .. "/src/pages/"
+	local page_path = pages_path .. name
+	-- Automatically add missing extension if not provided
 	if not endswith(page_path, ".astro") then
 		page_path = page_path .. ".astro"
 	end
+
+	--- Handle having slashes or backslashes (create parent dirs)
+	if name:find("[/\\]") then
+		vim.print("Creating parent directories...")
+		vim.fn.mkdir(pages_path .. name, "p")
+	end
+
+	--- Handle file existence
 	if vim.fn.findfile(page_path) then
-		vim.ui.select({ "yes", "no" }, { prompt = "File exists. Overwrite?" }, function(choice)
+		vim.ui.select({ "yes", "no" }, {
+			prompt = "File exists.",
+			format_item = function(item)
+				if item == "yes" then
+					return "Overwrite file"
+				else
+					return "Cancel"
+				end
+			end,
+		}, function(choice)
 			if choice == "yes" then
-				print("\nOverwriting " .. page_path)
-				local dummy_content = templates[1]
-				vim.fn.delete(page_path)
-				vim.fn.writefile(lines(dummy_content), page_path, "a")
+				write_page(page_path, templates[1])
+				vim.print("Overwritten " .. page_path)
 			else
-				print("\nFile " .. page_path .. " not overwritten")
+				vim.print("File " .. page_path .. " not overwritten")
 			end
 		end)
 		return
 	end
 
-	local dummy_content = templates[1]
-	vim.fn.delete(page_path)
-	vim.fn.writefile(lines(dummy_content), page_path, "a")
+	write_page(page_path, templates[1])
 end
 
 M.func = function(opts)
@@ -54,7 +75,7 @@ M.func = function(opts)
 	end
 
 	if vim.fn.filereadable(astro_config_path) == 0 then
-		print("No astro config found")
+		vim.print("No astro config found")
 		return
 	end
 
