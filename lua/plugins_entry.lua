@@ -13,6 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 local mason = require("lazy.config_parts.language")
 
+require("custom_stuff_test")
+
 local lazyinstalls = {
 	require("plugins.colorscheme.init").config,
 	require("plugins.treesitter.init").config,
