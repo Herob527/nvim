@@ -73,8 +73,6 @@ M.launch_ui = function()
 	-- mount/open the component
 	layout:mount()
 	input:on("BufLeave", function()
-		popup_two:unmount()
-		input:unmount()
 		layout:unmount()
 	end)
 end
