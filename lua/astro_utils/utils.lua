@@ -26,4 +26,6 @@ M.split_args = function(str)
 	return result
 end
 
+package.path = "astro_utils.utils"
+
 return M
