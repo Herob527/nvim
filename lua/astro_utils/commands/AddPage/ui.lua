@@ -1,17 +1,57 @@
 local M = {}
 
 
+local templates = {
+  [[
+---
+interface Props {
+
+}
+---]],
+  [[
+---
+interface Props {
+
+}
+---
+<section> </section>
+]]
+}
+
 M.launch_ui = function()
   local commons = require("astro_utils.commands.AddPage.common")
   local utils = require("astro_utils.utils")
   local path_exists = utils.path_exists
   local endswith = utils.endswith
+  local split = utils.lines
   local Input = require("nui.input")
   local Layout = require("nui.layout")
   local Popup = require("nui.popup")
 
   local cwd = vim.fn.getcwd()
   local pages_path = cwd .. "/src/pages/"
+  local popup_three = Popup({
+    focusable = false,
+    buf_options = {
+      modifiable = true,
+      readonly = false,
+    },
+    zindex = 50,
+    mode = "action",
+    relative = "editor",
+    border = {
+      padding = {
+        top = 1,
+        left = 2,
+        right = 1,
+      },
+      style = "rounded",
+      text = {
+        top = " Template ",
+        top_align = "left",
+      },
+    },
+  })
   local popup_two = Popup({
     focusable = false,
     buf_options = {
@@ -71,23 +111,30 @@ M.launch_ui = function()
         vim.api.nvim_buf_set_lines(popup_two.bufnr, 0, -1, false,
           { "Output path: /src/pages/" .. result_value, "", error_msg })
         if error_msg ~= "" then
-        vim.api.nvim_buf_add_highlight(popup_two.bufnr, 1, "error",  2, 0, -1)
-      end
+          vim.api.nvim_buf_add_highlight(popup_two.bufnr, 1, "error", 2, 0, -1)
+        end
       end)
     end,
   })
+  vim.schedule(function()
+    vim.api.nvim_buf_set_lines(popup_three.bufnr, 0, -1, false,
+      split(templates[1]))
+  end)
   local layout = Layout(
     {
       position = "50%",
       size = {
-        width = 80,
-        height = "40%",
+        width = 120,
+        height = "50%",
       },
     },
     Layout.Box({
-      Layout.Box(input, { grow = 1 }),
-      Layout.Box(popup_two, { grow = 5 }),
-    }, { dir = "col" })
+      Layout.Box({
+        Layout.Box(input, { size = 3 }),
+        Layout.Box(popup_two, { grow  = 1 }),
+      }, { dir = "col", size = "50%" }),
+      Layout.Box(popup_three, { grow = 1 }),
+    }, { dir = "row", size = "50%" })
   )
   -- mount/open the component
   layout:mount()
