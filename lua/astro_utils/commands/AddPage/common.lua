@@ -37,7 +37,6 @@ M.create_page = function(name, file_exists_handler)
 
   --- Handle having slashes or backslashes (create parent dirs)
   if name:find("[/\\]") then
-    vim.print("Creating parent directories...")
     vim.fn.mkdir(pages_path .. name, "p")
   end
 
