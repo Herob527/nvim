@@ -5,7 +5,6 @@ local t = luasnip.text_node
 local s = luasnip.snippet_node
 local d = luasnip.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
---- @type TreesitterModule
 local ts = vim.treesitter
 
 local ts_query = ts.query
