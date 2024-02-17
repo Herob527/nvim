@@ -17,7 +17,8 @@ M.write_page = function(path, template)
 end
 
 --- @param name string
-M.create_page = function(name)
+--- @param file_exists_handler fun(path: string): boolean If function returns *true*, overwrite file
+M.create_page = function(name, file_exists_handler)
 	if name == nil or name == "" then
 		error("No name provided")
 		return
@@ -40,23 +41,10 @@ M.create_page = function(name)
 
 	--- Handle file existence
 	if vim.fn.findfile(page_path) then
-		vim.ui.select({ "yes", "no" }, {
-			prompt = "File exists.",
-			format_item = function(item)
-				if item == "yes" then
-					return "Overwrite file"
-				else
-					return "Cancel"
-				end
-			end,
-		}, function(choice)
-			if choice == "yes" then
-				M.write_page(page_path, templates[1])
-				vim.print("Overwritten " .. page_path)
-			else
-				vim.print("File " .. page_path .. " not overwritten")
-			end
-		end)
+		local overwrite = file_exists_handler(page_path)
+		if overwrite then
+			M.write_page(page_path, templates[1])
+		end
 		return
 	end
 
