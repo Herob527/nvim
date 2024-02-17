@@ -16,7 +16,7 @@ M.launch_ui = function()
     focusable = false,
     buf_options = {
       modifiable = true,
-      readonly = true,
+      readonly = false,
     },
     zindex = 50,
     mode = "action",
@@ -63,14 +63,16 @@ M.launch_ui = function()
         return
       end
       vim.schedule(function()
-        vim.print(value)
         local result_value = value .. (endswith(value, ".astro") and "" or ".astro")
 
         local page_path = pages_path .. result_value
         local file_exists = path_exists(page_path)
-        local error_msg = file_exists and "File already exists. Accepting input will overwrite it" or ""
+        local error_msg = file_exists and "File already exists. Accepting input will overwrite it!" or ""
         vim.api.nvim_buf_set_lines(popup_two.bufnr, 0, -1, false,
-          { "Created path: /src/pages/" .. result_value, "", error_msg })
+          { "Output path: /src/pages/" .. result_value, "", error_msg })
+        if error_msg ~= "" then
+        vim.api.nvim_buf_add_highlight(popup_two.bufnr, 1, "error",  2, 0, -1)
+      end
       end)
     end,
   })
