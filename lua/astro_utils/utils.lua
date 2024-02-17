@@ -26,6 +26,10 @@ M.split_args = function(str)
 	return result
 end
 
+M.path_exists = function(path)
+  return vim.fn.findfile(path) ~= ""
+end
+
 package.path = "astro_utils.utils"
 
 return M
