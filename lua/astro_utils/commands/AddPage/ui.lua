@@ -41,7 +41,6 @@ M.launch_ui = function()
     relative = "editor",
     border = {
       padding = {
-        top = 1,
         left = 2,
         right = 1,
       },
@@ -96,10 +95,15 @@ M.launch_ui = function()
       print("Input Closed!")
     end,
     on_submit = function(value)
+      if value == "" then return end
       commons.create_page(value)
     end,
     on_change = function(value)
       if value == "" then
+        vim.schedule(function()
+          vim.api.nvim_buf_set_lines(popup_two.bufnr, 0, -1, false,
+            {})
+        end)
         return
       end
       vim.schedule(function()
@@ -108,30 +112,34 @@ M.launch_ui = function()
         local page_path = pages_path .. result_value
         local file_exists = path_exists(page_path)
         local error_msg = file_exists and "File already exists. Accepting input will overwrite it!" or ""
+
         vim.api.nvim_buf_set_lines(popup_two.bufnr, 0, -1, false,
           { "Output path: /src/pages/" .. result_value, "", error_msg })
+
         if error_msg ~= "" then
           vim.api.nvim_buf_add_highlight(popup_two.bufnr, 1, "error", 2, 0, -1)
         end
       end)
     end,
   })
+
   vim.schedule(function()
     vim.api.nvim_buf_set_lines(popup_three.bufnr, 0, -1, false,
       split(templates[1]))
   end)
+
   local layout = Layout(
     {
       position = "50%",
       size = {
-        width = 120,
+        width = 100,
         height = "50%",
       },
     },
     Layout.Box({
       Layout.Box({
         Layout.Box(input, { size = 3 }),
-        Layout.Box(popup_two, { grow  = 1 }),
+        Layout.Box(popup_two, { grow = 1 }),
       }, { dir = "col", size = "50%" }),
       Layout.Box(popup_three, { grow = 1 }),
     }, { dir = "row", size = "50%" })
