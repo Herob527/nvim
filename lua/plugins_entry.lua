@@ -51,7 +51,7 @@ local lazyinstalls = {
 	},
 	{
 		"pmizio/typescript-tools.nvim",
-		event = "VeryLazy",
+		event = "LspAttach",
 		ft = { "typescript", "javascript", "tsx", "typescriptreact", "javascriptreact" },
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {},
