@@ -34,12 +34,12 @@ M.mason.lspconfig = {
 
 M.mason.null_ls = {
 	"stylua",
-	"luacheck",
+	"selene",
 }
 
 M.null_ls = {
 	formatting = { { program = "stylua" } },
-	diagnostics = { { program = "luacheck", with = {
+	diagnostics = { { program = "selene", with = {
 		args = {
 			"--globals vim",
 		},

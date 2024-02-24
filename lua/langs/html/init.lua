@@ -15,12 +15,10 @@ M.mason.lspconfig = {
 }
 
 M.mason.null_ls = {
-	"curlylint",
 	"prettierd",
 }
 
 M.null_ls = {
 	formatting = { { program = "prettierd", with = { filetypes = { "html" } } } },
-	diagnostics = { { program = "curlylint" } },
 }
 return M

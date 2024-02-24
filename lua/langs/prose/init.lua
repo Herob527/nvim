@@ -4,19 +4,17 @@ M.treesitter = {}
 
 M.lspconfig = {
 	{ lsp = "prosemd_lsp" },
+	{ lsp = "typos_lsp" },
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
 	"prosemd_lsp",
+	"typos_lsp",
 }
 
-M.mason.null_ls = {
-	"typos",
-}
+M.mason.null_ls = {}
 
-M.null_ls = {
-	diagnostics = { { program = "typos", with = { filetypes = { "markdown", "yaml", "json", "html" } } } },
-}
+M.null_ls = {}
 return M
