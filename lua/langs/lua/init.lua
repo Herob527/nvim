@@ -39,10 +39,6 @@ M.mason.null_ls = {
 
 M.null_ls = {
 	formatting = { { program = "stylua" } },
-	diagnostics = { { program = "selene", with = {
-		args = {
-			"--globals vim",
-		},
-	} } },
+	diagnostics = { { program = "selene" } },
 }
 return M
