@@ -3,6 +3,7 @@ local M = {}
 M.treesitter = { "javascript", "typescript", "tsx", "jsdoc" }
 
 M.lspconfig = {
+	{ lsp = "tsserver" },
 	{ lsp = "eslint" },
 }
 
