@@ -3,21 +3,22 @@ local M = {}
 M.treesitter = { "vue" }
 
 M.lspconfig = {
-	{ lsp = "volar" },
+  { lsp = "volar" },
+  { lsp = "eslint" },
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
-	"volar",
+  "volar",
+  "eslint",
 }
 
 M.mason.null_ls = {
-	"eslint_d",
-	"prettierd",
+  "prettierd",
 }
 
 M.null_ls = {
-	formatting = { { program = "prettierd", with = { filetypes = { "vue" } } } },
+  formatting = { { program = "prettierd", with = { filetypes = { "vue" } } } },
 }
 return M
