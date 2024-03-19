@@ -1,13 +1,15 @@
 local M = {}
 
 M.config = {
-	"weilbith/nvim-code-action-menu",
-	cmd = "CodeActionMenu",
-	keys = { {
-		"<leader>ca",
-		"<cmd>:CodeActionMenu<cr>",
-		desc = "[C]ode [A]ction",
-	} },
+	"aznhe21/actions-preview.nvim",
+	keys = {
+		{
+			"<leader>ca",
+			'<cmd>:lua require("actions-preview").code_actions()<CR>',
+			mode = { "n", "v" },
+			desc = "[C]ode [A]ction",
+		},
+	},
 }
 
 return M
