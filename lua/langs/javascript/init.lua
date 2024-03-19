@@ -22,7 +22,6 @@ M.null_ls = {
 	formatting = {
 		{
 			program = "prettierd",
-			with = { filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" } },
 		},
 	},
 	rest = {},
