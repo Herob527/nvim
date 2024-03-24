@@ -15,14 +15,11 @@ M.mason.lspconfig = {
 }
 
 M.mason.null_ls = {
-	"beautysh",
-	"shellcheck",
+	"shfmt",
 }
 
 M.null_ls = {
-	formatting = { { program = "beautysh" } },
-	diagnostics = { { program = "shellcheck" } },
-	code_actions = { { program = "shellcheck" } },
+	formatting = { { program = "shfmt" } },
 	rest = {},
 }
 return M

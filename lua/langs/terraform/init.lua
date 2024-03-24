@@ -1,15 +1,15 @@
 local M = {}
 
-M.treesitter = { "rust" }
+M.treesitter = { "terraform" }
 
 M.lspconfig = {
-	{ lsp = "rust_analyzer" },
+	{ lsp = "terraformls" },
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
-	"rust_analyzer",
+	"terraformls",
 }
 
 M.mason.null_ls = {}

@@ -18,8 +18,7 @@ M.mason.null_ls = {
 }
 
 M.null_ls = {
-	formatting = { { program = "black" }, { program = "ruff" } },
-	diagnostics = { { program = "ruff" } },
+	formatting = { { program = "black" } },
 }
 
 M.dap = {}

@@ -15,5 +15,6 @@ local langs_table = {
 	dockerfile = require("langs.dockerfile.init"),
 	astro = require("langs.astro.init"),
 	prose = require("langs.prose.init"),
+	terraform = require("langs.terraform.init"),
 }
 return langs_table
