@@ -100,7 +100,6 @@ local create_printing_snippet = function(param)
 
   --- @param str string | nil
   local function normalize(str)
-    vim.print("[normalize - str]", str)
     return str and str:gsub("\"", "\\\"") or str
   end
 
