@@ -81,6 +81,12 @@ local lspconfig = {
 					capabilities = capabilities,
 					settings = lsp_data.settings,
 				}
+				if lsp_data.init_options then
+					params.init_options = lsp_data.init_options
+				end
+				if lsp_data.filetypes then
+					params.filetypes = lsp_data.filetypes
+				end
 				lspconfig[lsp_data.lsp].setup(params)
 			end
 		end
