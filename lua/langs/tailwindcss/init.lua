@@ -3,7 +3,14 @@ local M = {}
 M.treesitter = {}
 
 M.lspconfig = {
-	{ lsp = "tailwindcss" },
+	{
+		lsp = "tailwindcss",
+		settings = {
+			tailwindCSS = {
+				classAttributes = { "class-name" },
+			},
+		},
+	},
 }
 
 M.mason = {}
