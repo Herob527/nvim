@@ -7,7 +7,7 @@ M.lspconfig = {
 		lsp = "tailwindcss",
 		settings = {
 			tailwindCSS = {
-				classAttributes = { "class-name" },
+				classAttributes = { "class-name", "class", "className", "class:list" },
 			},
 		},
 	},
