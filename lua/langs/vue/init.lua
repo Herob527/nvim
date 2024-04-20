@@ -9,7 +9,7 @@ M.lspconfig = {
 			plugins = {
 				{
 					name = "@vue/typescript-plugin",
-					location =   vim.fn.stdpath("data") .. "/lazy".. "/packages" .. "/node_modules/@vue/typescript-plugin",
+					location = vim.fn.stdpath("data") .. "/npm_packages" .. "/node_modules/@vue/typescript-plugin",
 					languages = { "javascript", "typescript", "vue" },
 				},
 			},
