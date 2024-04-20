@@ -128,6 +128,7 @@ M.config = {
 				require("snippets.javascript.init")
 				require("snippets.css.init")
 				require("snippets.astro.init")
+				require("snippets.vue.init")
 
 				vim.keymap.set({ "n", "i" }, "<C-Esc>", function()
 					require("luasnip").unlink_current()
