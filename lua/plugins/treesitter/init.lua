@@ -20,6 +20,9 @@ M.init = function()
 		sync_install = true,
 		ignore_install = {},
 		auto_install = true,
+		autotag = {
+			enable = true,
+		},
 		playground = {
 			enable = true,
 			disable = {},
