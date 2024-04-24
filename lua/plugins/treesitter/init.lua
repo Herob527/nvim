@@ -22,6 +22,7 @@ M.init = function()
 		auto_install = true,
 		autotag = {
 			enable = true,
+			filetypes = { "html", "xml", "javascript", "javascriptreact", "astro", "typescript", "typescriptreact" },
 		},
 		playground = {
 			enable = true,
