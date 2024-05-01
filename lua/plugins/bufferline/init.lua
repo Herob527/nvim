@@ -32,11 +32,23 @@ M.config = {
 		event = "VeryLazy",
 		config = function()
 			require("nvim-web-devicons").setup({
+				override_by_filename = {
+					["prettier"] = {
+						icon = "",
+						color = "#f1502f",
+						name = "Gitignore",
+					},
+				},
 				override_by_extension = {
 					["astro"] = {
 						icon = "󰑣",
 						color = "#FF5733",
-						name = "astro",
+						name = "AstroIcon",
+					},
+					[".nvmrc"] = {
+						icon = "",
+						color = "#00a2ff",
+						name = "nvmrcIcon",
 					},
 				},
 			})
