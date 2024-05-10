@@ -10,7 +10,33 @@ M.init = function()
 	end
 
 	local lspkind = require("lspkind")
+	cmp.setup.cmdline("/", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+		},
+	})
 
+	cmp.setup.cmdline(":%s/", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+		},
+	})
+	-- `:` cmdline setup.
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = "path" },
+		}, {
+			{
+				name = "cmdline",
+				option = {
+					ignore_cmds = { "Man", "!" },
+				},
+			},
+		}),
+	})
 	cmp.setup({
 		performance = {
 			max_view_entries = 20,
@@ -46,6 +72,7 @@ M.init = function()
 		sources = cmp.config.sources({
 			{ name = "luasnip" },
 			{ name = "cmp-tw2css" },
+			{ name = "hrsh7th/cmp-cmdline" },
 			{
 				name = "nvim_lsp",
 
@@ -104,11 +131,12 @@ end
 
 M.config = {
 	"hrsh7th/nvim-cmp",
-	event = "InsertCharPre",
+	event = { "InsertCharPre", "CmdlineEnter" },
 	dependencies = {
 		{ "hrsh7th/cmp-nvim-lsp" },
 		{ "onsails/lspkind.nvim" },
 		{ "hrsh7th/cmp-path" },
+		{ "hrsh7th/cmp-cmdline" },
 		{ "hrsh7th/cmp-buffer" },
 		{ "hrsh7th/cmp-nvim-lua" },
 		{ "saadparwaiz1/cmp_luasnip" },
