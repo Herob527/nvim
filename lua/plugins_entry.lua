@@ -19,10 +19,8 @@ local lazyinstalls = {
 	require("plugins.nvim_tree.init").config,
 	"nvim-lua/plenary.nvim",
 	require("plugins.telescope.init").config,
-	-- require("plugins.fzf.init").config,
 	require("plugins.gitsigns.init").config,
 	require("plugins.lazygit.init").config,
-	require("plugins.wilder.init").config,
 	require("plugins.refactoring.init").config,
 	-- require("plugins.mason.dap").config,
 	require("plugins.cmp.init").config,
@@ -42,22 +40,6 @@ local lazyinstalls = {
 		opts = {
 			-- options
 		},
-	},
-	{
-		dir = "astro_utils",
-		event = "VeryLazy",
-		config = require("astro_utils.init").setup,
-		dependencies = { "MunifTanjim/nui.nvim" },
-	},
-	{
-		"pmizio/typescript-tools.nvim",
-		event = "LspAttach",
-		ft = { "typescript", "javascript", "tsx", "typescriptreact", "javascriptreact" },
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-		config = function()
-			require("typescript-tools").setup({})
-		end,
 	},
 	mason,
 }

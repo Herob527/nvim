@@ -69,8 +69,12 @@ local lspconfig = {
 	} },
 	priority = 700,
 	event = "VeryLazy",
+	build = function()
+		local install_npm_package = require("utils.install_npm_package")
+		install_npm_package("@vue/typescript-plugin")
+	end,
 	config = function()
-		local lspconfig = require("lspconfig")
+		local lsp_config = require("lspconfig")
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		local iter = lsp_config_iterator()
@@ -79,9 +83,17 @@ local lspconfig = {
 			if lsp_data.lsp then
 				local params = {
 					capabilities = capabilities,
-					settings = lsp_data.settings,
 				}
-				lspconfig[lsp_data.lsp].setup(params)
+				if lsp_data.settings then
+					params.settings = lsp_data.settings
+				end
+				if lsp_data.init_options then
+					params.init_options = lsp_data.init_options
+				end
+				if lsp_data.filetypes then
+					params.filetypes = lsp_data.filetypes
+				end
+				lsp_config[lsp_data.lsp].setup(params)
 			end
 		end
 	end,

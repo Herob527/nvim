@@ -12,11 +12,7 @@ M.mason.lspconfig = {
 	"rust_analyzer",
 }
 
-M.mason.null_ls = {
-	"rustfmt",
-}
+M.mason.null_ls = {}
 
-M.null_ls = {
-	formatting = { { program = "rustfmt" } },
-}
+M.null_ls = {}
 return M

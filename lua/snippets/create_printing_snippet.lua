@@ -98,24 +98,21 @@ local create_printing_snippet = function(param)
     end
   end
 
+  --- @param str string | nil
+  local function normalize(str)
+    return str and str:gsub("\"", "\\\"") or str
+  end
+
   local console = sn(
     param.trigger or "con",
     fmt(param.format, {
       function_name = d(1, function(args, snip)
-        local status, value = pcall(function()
-          local ts_node = get_node(snip)
-          local checked_value = all_trim(args[1][1])
-          local function_root = seek_function_root(ts_node, param.breakpoints)
-          local data = function_root ~= nil and get_node_text(function_root) or ""
-          local output = checked_value ~= "" and t(data .. " - " .. checked_value) or t(data)
-          return output
-        end)
-        if status then
-          return s(nil, { value })
-        else
-          vim.print(value)
-          return s(nil, {})
-        end
+        local ts_node = get_node(snip)
+        local checked_value = all_trim(args[1][1])
+        local function_root = seek_function_root(ts_node, param.breakpoints)
+        local data = function_root ~= nil and get_node_text(function_root) or ""
+        local output = checked_value ~= "" and t(normalize(data .. " - " .. checked_value)) or t(normalize(data))
+        return s(nil, { output })
       end, { 2 }),
       var = i(2),
     })

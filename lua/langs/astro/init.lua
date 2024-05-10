@@ -6,12 +6,14 @@ M.treesitter = {
 
 M.lspconfig = {
 	{ lsp = "astro" },
+	{ lsp = "eslint" },
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
 	"astro",
+	"eslint",
 }
 
 M.mason.null_ls = {}
@@ -21,7 +23,5 @@ M.null_ls = {
 		{ program = "prettierd", with = { filetypes = { "astro" } } },
 		{ program = "rustywind", with = { filetypes = { "astro" } } },
 	},
-	diagnostics = { { program = "eslint_d", with = { filetypes = { "astro" } } } },
-	code_actions = { { program = "eslint_d" } },
 }
 return M

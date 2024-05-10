@@ -4,22 +4,22 @@ M.treesitter = { "python" }
 
 M.lspconfig = {
 	{ lsp = "pyright" },
+	{ lsp = "ruff" },
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
 	"pyright",
+	"ruff",
 }
 
 M.mason.null_ls = {
 	"black",
-	"ruff",
 }
 
 M.null_ls = {
-	formatting = { { program = "black" }, { program = "ruff" } },
-	diagnostics = { { program = "ruff" } },
+	formatting = { { program = "black" } },
 }
 
 M.dap = {}
