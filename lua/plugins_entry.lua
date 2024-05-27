@@ -42,14 +42,8 @@ local lazyinstalls = {
 		},
 	},
 	{
-		"nvimdev/dashboard-nvim",
-		event = "VimEnter",
-		config = function()
-			require("dashboard").setup({
-				-- config
-			})
-		end,
-		dependencies = { { "nvim-tree/nvim-web-devicons" } },
+		"kosayoda/nvim-lightbulb",
+		event = "LspAttach",
 	},
 	mason,
 }
