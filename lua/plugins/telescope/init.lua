@@ -50,6 +50,7 @@ M.config = {
 		{ "<leader>fr", "<cmd>Telescope lsp_references<CR>", desc = "[F]ind [r]eferences" },
 		{ "<leader>fn", "<cmd>Telescope lsp_definitions<CR>", desc = "[F]ind defi[n]itions" },
 	},
+	event = "VeryLazy",
 	config = function()
 		M.init()
 	end,

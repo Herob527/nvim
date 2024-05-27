@@ -3,14 +3,14 @@ local M = {}
 M.treesitter = { "javascript", "typescript", "tsx", "jsdoc" }
 
 M.lspconfig = {
-	{ lsp = "tsserver" },
+	{ lsp = "vtsls" },
 	{ lsp = "eslint" },
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
-	"tsserver",
+	"vtsls",
 	"eslint",
 }
 

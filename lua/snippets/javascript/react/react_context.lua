@@ -4,10 +4,8 @@ local luasnip = require("luasnip")
 local i = luasnip.insert_node
 local c = luasnip.choice_node
 local t = luasnip.text_node
-local f = luasnip.function_node
 local sn = luasnip.snippet
 local s = luasnip.snippet_node
-local l = luasnip.label
 local d = luasnip.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
 

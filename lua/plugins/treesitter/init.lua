@@ -20,6 +20,10 @@ M.init = function()
 		sync_install = true,
 		ignore_install = {},
 		auto_install = true,
+		autotag = {
+			enable = true,
+			filetypes = { "html", "xml", "javascript", "javascriptreact", "astro", "typescript", "typescriptreact", "vue" },
+		},
 		playground = {
 			enable = true,
 			disable = {},

@@ -17,10 +17,8 @@ local lazyinstalls = {
 	require("plugins.nvim_tree.init").config,
 	"nvim-lua/plenary.nvim",
 	require("plugins.telescope.init").config,
-	-- require("plugins.fzf.init").config,
 	require("plugins.gitsigns.init").config,
 	require("plugins.lazygit.init").config,
-	require("plugins.wilder.init").config,
 	require("plugins.refactoring.init").config,
 	-- require("plugins.mason.dap").config,
 	require("plugins.cmp.init").config,
@@ -40,6 +38,10 @@ local lazyinstalls = {
 		opts = {
 			-- options
 		},
+	},
+	{
+		"kosayoda/nvim-lightbulb",
+		event = "LspAttach",
 	},
 	mason,
 }
