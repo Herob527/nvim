@@ -40,7 +40,7 @@
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
   "refactoring.nvim": { "branch": "master", "commit": "d2786877c91aa409c824f27b4ce8a9f560dda60a" },
   "schemastore.nvim": { "branch": "main", "commit": "931f9f3b7b60ec976159cb01b4a40da3829ac2fd" },
-  "telescope.nvim": { "branch": "master", "commit": "4c96370cf93e2ba287548da12d673442d0ffecc3" },
+  "telescope.nvim": { "branch": "master", "commit": "2df52609a1632de5d77a0b2416db6ad9cf32e463" },
   "trouble.nvim": { "branch": "main", "commit": "a8264a65a0b894832ea642844f5b7c30112c458f" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
