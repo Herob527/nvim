@@ -15,8 +15,6 @@ M.lspconfig = {
 			},
 		},
 		filetypes = {
-			"javascript",
-			"typescript",
 			"vue",
 		},
 	},
