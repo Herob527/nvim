@@ -90,6 +90,9 @@ local lspconfig = {
 				if lsp_data.init_options then
 					params.init_options = lsp_data.init_options
 				end
+				if lsp_data.before_init then
+					params.before_init = lsp_data.before_init
+				end
 				if lsp_data.filetypes then
 					params.filetypes = lsp_data.filetypes
 				end
