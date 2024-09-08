@@ -4,7 +4,7 @@ M.treesitter = { "vue" }
 
 M.lspconfig = {
 	{
-		lsp = "tsserver",
+		lsp = "ts_ls",
 		init_options = {
 			plugins = {
 				{
@@ -22,7 +22,9 @@ M.lspconfig = {
 	{ lsp = "eslint" },
 }
 
-M.mason = {}
+M.mason = {
+"typescript-language-server",
+}
 
 M.mason.lspconfig = {
 	"volar",
