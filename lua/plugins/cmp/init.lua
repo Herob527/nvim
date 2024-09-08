@@ -143,9 +143,9 @@ M.config = {
 		{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 		{ "f3fora/cmp-spell" },
 		{
-			"Exafunction/codeium.nvim",
+			"zanadoman/codeium.nvim",
 			config = function()
-				require("codeium").setup({})
+				require("codeium").setup({ ignored_errors = { 408, 503, 504 } })
 			end,
 		},
 		{ "jcha0713/cmp-tw2css" },
