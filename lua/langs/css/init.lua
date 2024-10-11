@@ -6,7 +6,9 @@ M.treesitter = {
 }
 
 M.lspconfig = {
-	 { lsp = "cssls" }, { lsp = "cssmodules_ls" } ,
+	{ lsp = "cssls" },
+	{ lsp = "cssmodules_ls" },
+	{ lsp = "unocss", filetypes = { "astro", "javascript", "javascriptreact", "typescript", "typescriptreact" } },
 }
 
 M.mason = {}
@@ -14,6 +16,7 @@ M.mason = {}
 M.mason.lspconfig = {
 	"cssls",
 	"cssmodules_ls",
+	"unocss",
 }
 
 M.mason.null_ls = {
