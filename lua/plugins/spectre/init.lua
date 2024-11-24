@@ -1,31 +1,24 @@
 local M = {}
 
 M.init = function()
-	require("spectre").setup({
-		live_update = true,
-	})
+	require("grug-far").setup({})
 end
 M.config = {
-	"windwp/nvim-spectre",
+	"MagicDuck/grug-far.nvim",
 	keys = {
 		{
 			"<leader>S",
-			'<cmd>lua require("spectre").open()<CR>',
-			desc = "Open [S]pectre",
+			"<cmd>GrugFar ripgrep<CR>",
+			desc = "Open ripgrep",
 		},
 		{
-			"<leader>sw",
-			'<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
-			desc = "[s]earch current [w]ord",
+			"<leader>G",
+			"<cmd>GrugFar astgrep<CR>",
+			desc = "Open astgrep",
 		},
-		{
-			"<leader>sf",
-			'<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-			desc = "[s]earch in current [f]ile",
-		},
-		config = function()
-			M.init()
-		end,
 	},
+	config = function()
+		M.init()
+	end,
 }
 return M
