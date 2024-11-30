@@ -53,7 +53,17 @@ local lazyinstalls = {
 		end,
 		dependencies = { "neovim/nvim-lspconfig" },
 	},
-  {'dmmulroy/tsc.nvim', config = function() require('tsc').setup() end, event = "LspAttach"},
+	{
+		"dmmulroy/tsc.nvim",
+		config = function()
+			require("tsc").setup()
+		end,
+		event = "LspAttach",
+	},
+	{
+		"mrcjkb/haskell-tools.nvim",
+		event = "LspAttach",
+	},
 	mason,
 }
 

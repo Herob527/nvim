@@ -16,5 +16,6 @@ local langs_table = {
 	astro = require("langs.astro.init"),
 	prose = require("langs.prose.init"),
 	terraform = require("langs.terraform.init"),
+	haskell = require("langs.haskell.init"),
 }
 return langs_table
