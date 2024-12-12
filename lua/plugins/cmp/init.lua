@@ -41,6 +41,12 @@ M.init = function()
 		performance = {
 			max_view_entries = 20,
 		},
+
+
+    window = {
+      completion = { border = 'single' },
+      documentation = { border = 'single' },
+    },
 		formatting = {
 			format = lspkind.cmp_format({
 				mode = "text_symbol", -- show only symbol annotations
