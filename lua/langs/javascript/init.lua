@@ -3,7 +3,31 @@ local M = {}
 M.treesitter = { "javascript", "typescript", "tsx", "jsdoc" }
 
 M.lspconfig = {
-	{ lsp = "vtsls" },
+	{
+		lsp = "vtsls",
+		settings = {
+			typescript = {
+				inlayHints = {
+					parameterNames = { enabled = "literals" },
+					parameterTypes = { enabled = true },
+					variableTypes = { enabled = false },
+					propertyDeclarationTypes = { enabled = true },
+					functionLikeReturnTypes = { enabled = true },
+					enumMemberValues = { enabled = true },
+				},
+			},
+			javascript = {
+				inlayHints = {
+					parameterNames = { enabled = "literals" },
+					parameterTypes = { enabled = true },
+					variableTypes = { enabled = false },
+					propertyDeclarationTypes = { enabled = true },
+					functionLikeReturnTypes = { enabled = true },
+					enumMemberValues = { enabled = true },
+				},
+			},
+		},
+	},
 	{ lsp = "eslint" },
 }
 
