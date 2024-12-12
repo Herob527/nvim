@@ -4,13 +4,6 @@ M.init = function()
 	local HEIGHT_RATIO = 0.8 -- You can change this
 	local WIDTH_RATIO = 0.5 -- You can change this too
 
-	local function open_tab_silent(node)
-		local api = require("nvim-tree.api")
-
-		api.node.open.tab(node)
-		vim.cmd.tabprev()
-	end
-
 	local function on_attach(bufnr)
 		local api = require("nvim-tree.api")
 
@@ -116,54 +109,6 @@ M.init = function()
 
 		-- ... other custom actions you may want to display in the menu
 	}
-	local function tree_actions_menu(node)
-		local entry_maker = function(menu_item)
-			return {
-				value = menu_item,
-				ordinal = menu_item.name,
-				display = menu_item.name,
-			}
-		end
-
-		local finder = require("telescope.finders").new_table({
-			results = tree_actions,
-			entry_maker = entry_maker,
-		})
-
-		local sorter = require("telescope.sorters").get_generic_fuzzy_sorter()
-
-		local default_options = {
-			finder = finder,
-			sorter = sorter,
-			attach_mappings = function(prompt_buffer_number)
-				local actions = require("telescope.actions")
-
-				-- On item select
-				actions.select_default:replace(function()
-					local state = require("telescope.actions.state")
-					local selection = state.get_selected_entry()
-					-- Closing the picker
-					actions.close(prompt_buffer_number)
-					-- Executing the callback
-					selection.value.handler(node)
-				end)
-
-				-- The following actions are disabled in this example
-				-- You may want to map them too depending on your needs though
-				actions.add_selection:replace(function() end)
-				actions.remove_selection:replace(function() end)
-				actions.toggle_selection:replace(function() end)
-				actions.select_all:replace(function() end)
-				actions.drop_all:replace(function() end)
-				actions.toggle_all:replace(function() end)
-
-				return true
-			end,
-		}
-
-		-- Opening the menu
-		require("telescope.pickers").new({ prompt_title = "Tree menu" }, default_options):find()
-	end
 	require("nvim-tree").setup({
 		disable_netrw = false,
 		update_focused_file = { enable = true, update_root = true },
@@ -200,6 +145,89 @@ M.init = function()
 			},
 		},
 	})
+	local path_sep = package.config:sub(1, 1)
+
+	local function trim_sep(path)
+		return path:gsub(path_sep .. "$", "")
+	end
+
+	local function uri_from_path(path)
+		return vim.uri_from_fname(trim_sep(path))
+	end
+
+	local function is_sub_path(path, folder)
+		path = trim_sep(path)
+		folder = trim_sep(folder)
+		if path == folder then
+			return true
+		else
+			return path:sub(1, #folder + 1) == folder .. path_sep
+		end
+	end
+
+	local function check_folders_contains(folders, path)
+		for _, folder in pairs(folders) do
+			if is_sub_path(path, folder.name) then
+				return true
+			end
+		end
+		return false
+	end
+
+	local function match_file_operation_filter(filter, name, type)
+		if filter.scheme and filter.scheme ~= "file" then
+			-- we do not support uri scheme other than file
+			return false
+		end
+		local pattern = filter.pattern
+		local matches = pattern.matches
+
+		if type ~= matches then
+			return false
+		end
+
+		local regex_str = vim.fn.glob2regpat(pattern.glob)
+		if vim.tbl_get(pattern, "options", "ignoreCase") then
+			regex_str = "\\c" .. regex_str
+		end
+		return vim.regex(regex_str):match_str(name) ~= nil
+	end
+
+	local api = require("nvim-tree.api")
+	api.events.subscribe(api.events.Event.NodeRenamed, function(data)
+		local stat = vim.loop.fs_stat(data.new_name)
+		if not stat then
+			return
+		end
+		local type = ({ file = "file", directory = "folder" })[stat.type]
+		local clients = vim.lsp.get_clients({})
+		for _, client in ipairs(clients) do
+			if check_folders_contains(client.workspace_folders, data.old_name) then
+				local filters = vim.tbl_get(
+					client.server_capabilities,
+					"workspace",
+					"fileOperations",
+					"didRename",
+					"filters"
+				) or {}
+				for _, filter in pairs(filters) do
+					if
+						match_file_operation_filter(filter, data.old_name, type)
+						and match_file_operation_filter(filter, data.new_name, type)
+					then
+						client.notify(
+							"workspace/didRenameFiles",
+							{
+								files = {
+									{ oldUri = uri_from_path(data.old_name), newUri = uri_from_path(data.new_name) },
+								},
+							}
+						)
+					end
+				end
+			end
+		end
+	end)
 end
 
 M.config = {
