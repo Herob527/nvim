@@ -1,4 +1,4 @@
-local mason = {
+return {
 	"williamboman/mason.nvim",
 	event = "VeryLazy",
 	config = function()
@@ -9,5 +9,3 @@ local mason = {
 		})
 	end,
 }
-
-return mason
