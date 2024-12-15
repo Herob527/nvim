@@ -1,13 +1,4 @@
-local mason = {
-	"williamboman/mason.nvim",
-	event = "VeryLazy",
-	config = function()
-		require("mason").setup()
-	end,
-}
-
 local mason_lspconfig = {
-
 	"williamboman/mason-lspconfig.nvim",
 	event = "VeryLazy",
 	config = function()
@@ -27,7 +18,7 @@ local mason_lspconfig = {
 		})
 	end,
 	dependencies = {
-		mason,
+		require("lazy.config_parts.mason_config"),
 	},
 }
 

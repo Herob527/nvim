@@ -1,11 +1,3 @@
-local mason = {
-	"williamboman/mason.nvim",
-	event = "VeryLazy",
-	config = function()
-		require("mason").setup()
-	end,
-}
-
 local function inArray(arr, element) -- function to check if something is in an array
 	for _, value in ipairs(arr) do -- ipairs is the recommended iterator for looping through arrays
 		if value == element then
@@ -32,7 +24,7 @@ local mason_null_ls = {
 		end
 		require("mason-null-ls").setup({ ensure_installed = ensure_installed })
 	end,
-	dependencies = { mason },
+	dependencies = { require("lazy.config_parts.mason_config") },
 }
 
 local null_ls_iterator = function()
@@ -84,6 +76,7 @@ local null_ls = {
 
 		null_ls.setup({
 			sources = sources,
+			debug = true,
 			on_attach = require("lsp-format").on_attach,
 		})
 	end,
