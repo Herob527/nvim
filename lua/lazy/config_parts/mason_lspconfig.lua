@@ -53,7 +53,7 @@ local lsp_config_iterator = function()
 	end
 end
 
-local lspconfig = {
+return {
 	"neovim/nvim-lspconfig",
 	dependencies = { mason_lspconfig, {
 		"b0o/schemastore.nvim",
@@ -92,4 +92,3 @@ local lspconfig = {
 		end
 	end,
 }
-return lspconfig
