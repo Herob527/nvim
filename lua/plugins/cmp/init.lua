@@ -42,11 +42,10 @@ M.init = function()
 			max_view_entries = 20,
 		},
 
-
-    window = {
-      completion = { border = 'single' },
-      documentation = { border = 'single' },
-    },
+		window = {
+			completion = { border = "single" },
+			documentation = { border = "single" },
+		},
 		formatting = {
 			format = lspkind.cmp_format({
 				mode = "text_symbol", -- show only symbol annotations
@@ -99,7 +98,9 @@ M.init = function()
 					end,
 				},
 			},
-			{ name = "path" },
+			{
+				name = "async_path",
+			},
 			{ name = "buffer" },
 			{ name = "codeium" },
 		}),
@@ -136,15 +137,18 @@ M.init = function()
 end
 
 M.config = {
-	"hrsh7th/nvim-cmp",
+	"iguanacucumber/magazine.nvim",
+	name = "nvim-cmp", -- Otherwise highlighting gets messed up
 	event = { "InsertCharPre", "CmdlineEnter" },
 	dependencies = {
-		{ "hrsh7th/cmp-nvim-lsp" },
+		{ "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+		{ "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+		{ "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+		{ "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
 		{ "onsails/lspkind.nvim" },
-		{ "hrsh7th/cmp-path" },
-		{ "hrsh7th/cmp-cmdline" },
-		{ "hrsh7th/cmp-buffer" },
-		{ "hrsh7th/cmp-nvim-lua" },
+		{
+			"https://codeberg.org/FelipeLema/cmp-async-path",
+		},
 		{ "saadparwaiz1/cmp_luasnip" },
 		{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 		{ "f3fora/cmp-spell" },
