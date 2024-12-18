@@ -39,7 +39,7 @@ M.init = function()
 	})
 	cmp.setup({
 		performance = {
-			max_view_entries = 20,
+			max_view_entries = 50,
 		},
 
 		window = {
