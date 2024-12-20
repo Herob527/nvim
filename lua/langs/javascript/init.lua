@@ -28,7 +28,24 @@ M.lspconfig = {
 			},
 		},
 	},
-	{ lsp = "eslint" },
+	{
+		lsp = "eslint",
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"vue",
+			"svelte",
+			"astro",
+			"graphql",
+		},
+	},
+	{
+		lsp = "biome",
+	},
 }
 
 M.mason = {}
@@ -36,6 +53,7 @@ M.mason = {}
 M.mason.lspconfig = {
 	"vtsls",
 	"eslint",
+	"biome",
 }
 
 M.mason.null_ls = {
