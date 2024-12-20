@@ -73,6 +73,10 @@ local lazyinstalls = {
 		end,
 	},
 	{
+		"LunarVim/bigfile.nvim",
+		event = "VeryLazy",
+	},
+	{
 		"VidocqH/lsp-lens.nvim",
 		event = "BufRead",
 		opts = {
