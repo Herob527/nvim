@@ -6,6 +6,14 @@ M.lspconfig = {
 	{
 		lsp = "vtsls",
 		settings = {
+			vtsls = {
+				experimental = {
+					maxInlayHintLength = 30,
+					completion = {
+						enableServerSideFuzzyMatch = true,
+					},
+				},
+			},
 			typescript = {
 				inlayHints = {
 					parameterNames = { enabled = "literals" },
