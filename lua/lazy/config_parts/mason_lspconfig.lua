@@ -57,6 +57,7 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = { mason_lspconfig, {
 		"b0o/schemastore.nvim",
+		"saghen/blink.cmp",
 	} },
 	priority = 700,
 	event = "VeryLazy",
@@ -66,7 +67,7 @@ return {
 	end,
 	config = function()
 		local lsp_config = require("lspconfig")
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local iter = lsp_config_iterator()
 
