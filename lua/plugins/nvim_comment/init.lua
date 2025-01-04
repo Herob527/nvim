@@ -1,11 +1,11 @@
 local M = {}
 
 M.init = function()
-	require("nvim_comment").setup({})
+	require("Comment").setup()
 end
 
 M.config = {
-	"terrortylor/nvim-comment",
+	"numToStr/Comment.nvim",
 	event = "BufNew",
 	config = M.init,
 }
