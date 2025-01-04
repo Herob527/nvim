@@ -32,12 +32,7 @@ M.config = {
 				nerd_font_variant = "mono",
 			},
 
-			signature = {
-				enabled = true,
-				window = {
-					border = "single",
-				},
-			},
+			signature = { enabled = true },
 			completion = {
 				list = {
 					max_items = 50,
