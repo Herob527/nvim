@@ -16,6 +16,7 @@ M.mason.lspconfig = {
 
 M.conform = {
 	"black",
+	"ruff",
 }
 
 M.dap = {}
