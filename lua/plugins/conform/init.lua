@@ -41,9 +41,7 @@ M.config = {
 		"zapling/mason-conform.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("mason-conform").setup({
-				ensure_installed = { "black", "ruff" },
-			})
+			require("mason-conform").setup()
 		end,
 	},
 }
