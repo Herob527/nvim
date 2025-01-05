@@ -22,7 +22,7 @@ M.init = function()
 	end
 	require("lint").linters_by_ft = linters
 
-	vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter" }, {
+	vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "InsertLeave" }, {
 		callback = function()
 			-- try_lint without arguments runs the linters defined in `linters_by_ft`
 			-- for the current filetype
