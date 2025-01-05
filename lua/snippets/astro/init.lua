@@ -6,4 +6,4 @@ local astro_snippets = {
 	astro_boilterplate,
 }
 
-luasnip.add_snippets("typescriptreact", astro_snippets)
+luasnip.add_snippets("astro", astro_snippets)
