@@ -19,11 +19,8 @@ M.mason.lspconfig = {
 	"jsonls",
 }
 
-M.mason.null_ls = {
+M.conform = {
 	"prettierd",
 }
 
-M.null_ls = {
-	formatting = { { program = "prettierd", with = { filetypes = { "json" } } } },
-}
 return M

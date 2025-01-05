@@ -19,11 +19,8 @@ M.mason.lspconfig = {
 	"tailwindcss",
 }
 
-M.mason.null_ls = {
+M.conform = {
 	"rustywind",
 }
 
-M.null_ls = {
-	formatting = { { program = "rustywind" } },
-}
 return M

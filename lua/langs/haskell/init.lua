@@ -14,7 +14,4 @@ M.mason.lspconfig = {
 	"hls",
 }
 
-M.mason.null_ls = {}
-
-M.null_ls = {}
 return M

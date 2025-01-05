@@ -6,7 +6,6 @@ M.treesitter = {
 
 M.lspconfig = {
 	{ lsp = "astro" },
-	{ lsp = "eslint" },
 }
 
 M.mason = {}
@@ -16,12 +15,13 @@ M.mason.lspconfig = {
 	"eslint",
 }
 
-M.mason.null_ls = {}
-
-M.null_ls = {
-	formatting = {
-		{ program = "prettierd", with = { filetypes = { "astro" } } },
-		{ program = "rustywind", with = { filetypes = { "astro" } } },
-	},
+M.conform = {
+	"prettierd",
+	"rustywind",
 }
+
+M.linter = {
+	"eslint_d",
+}
+
 return M

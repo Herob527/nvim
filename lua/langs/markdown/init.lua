@@ -13,15 +13,13 @@ M.mason.lspconfig = {
 	"mdx_analyzer",
 }
 
-M.mason.null_ls = {
+M.conform = {
+	"markdownlint",
+	"prettierd",
+}
+
+M.linter = {
 	"markdownlint",
 }
 
-M.null_ls = {
-	formatting = {
-		{ program = "markdownlint" },
-		{ program = "prettierd", with = { filetypes = { "markdown", "mdx" } } },
-	},
-	diagnostics = { { program = "markdownlint" } },
-}
 return M

@@ -14,11 +14,8 @@ M.mason.lspconfig = {
 	"dockerls",
 }
 
-M.mason.null_ls = {
+M.linter = {
 	"hadolint",
 }
 
-M.null_ls = {
-	diagnostics = { { program = "hadolint" } },
-}
 return M

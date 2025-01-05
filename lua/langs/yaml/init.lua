@@ -26,29 +26,12 @@ M.mason.lspconfig = {
 	"yamlls",
 }
 
-M.mason.null_ls = {
-	"yamllint",
+M.conform = {
 	"yamlfmt",
-	"prettierd",
 }
 
-M.null_ls = {
-	formatting = { { program = "prettierd", with = { filetypes = { "yaml" } } } },
-	diagnostics = {
-		{
-			program = "yamllint",
-			with = {
-				args = {
-					"--format",
-					"parsable",
-					"--config-file",
-					os.getenv("HOME") .. "/.config/nvim/lua/langs/yaml/yamllint_config.yml",
-					"--no-warnings",
-					"-",
-				},
-			},
-		},
-	},
+M.linter = {
+	"yamllint",
 }
 
 return M

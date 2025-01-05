@@ -14,12 +14,8 @@ M.mason.lspconfig = {
 	"bashls",
 }
 
-M.mason.null_ls = {
+M.conform = {
 	"shfmt",
 }
 
-M.null_ls = {
-	formatting = { { program = "shfmt" } },
-	rest = {},
-}
 return M

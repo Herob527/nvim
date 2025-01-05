@@ -19,23 +19,18 @@ M.lspconfig = {
 		},
 	},
 	{ lsp = "volar" },
-	{ lsp = "eslint" },
 }
 
 M.mason = {
-"typescript-language-server",
+	"typescript-language-server",
 }
 
 M.mason.lspconfig = {
 	"volar",
-	"eslint",
 }
 
-M.mason.null_ls = {
-	"prettierd",
-}
+M.linter = { "eslint_d" }
 
-M.null_ls = {
-	formatting = { { program = "prettierd", with = { filetypes = { "vue" } } } },
-}
+M.conform = { "eslint_d", "prettierd" }
+
 return M

@@ -12,7 +12,4 @@ M.mason.lspconfig = {
 	"rust_analyzer",
 }
 
-M.mason.null_ls = {}
-
-M.null_ls = {}
 return M

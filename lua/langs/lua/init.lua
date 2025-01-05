@@ -32,13 +32,12 @@ M.mason.lspconfig = {
 	"lua_ls",
 }
 
-M.mason.null_ls = {
+M.conform = {
 	"stylua",
+}
+
+M.linter = {
 	"selene",
 }
 
-M.null_ls = {
-	formatting = { { program = "stylua" } },
-	diagnostics = { { program = "selene" } },
-}
 return M

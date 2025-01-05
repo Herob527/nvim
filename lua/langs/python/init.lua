@@ -14,12 +14,8 @@ M.mason.lspconfig = {
 	"ruff",
 }
 
-M.mason.null_ls = {
+M.conform = {
 	"black",
-}
-
-M.null_ls = {
-	formatting = { { program = "black" } },
 }
 
 M.dap = {}

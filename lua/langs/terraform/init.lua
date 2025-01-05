@@ -12,7 +12,4 @@ M.mason.lspconfig = {
 	"terraformls",
 }
 
-M.mason.null_ls = {}
-
-M.null_ls = {}
 return M

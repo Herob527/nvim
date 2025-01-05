@@ -45,7 +45,6 @@ M.lspconfig = {
 			"typescript",
 			"typescriptreact",
 			"typescript.tsx",
-			"vue",
 			"svelte",
 			"astro",
 			"graphql",
@@ -64,16 +63,8 @@ M.mason.lspconfig = {
 	"biome",
 }
 
-M.mason.null_ls = {
+M.conform = {
 	"prettierd",
 }
 
-M.null_ls = {
-	formatting = {
-		{
-			program = "prettierd",
-		},
-	},
-	rest = {},
-}
 return M

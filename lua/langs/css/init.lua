@@ -19,12 +19,12 @@ M.mason.lspconfig = {
 	"unocss",
 }
 
-M.mason.null_ls = {
+M.conform = {
 	"prettierd",
+}
+
+M.linter = {
 	"stylelint",
 }
 
-M.null_ls = {
-	formatting = { { program = "prettierd", with = { filetypes = { "css", "sass", "scss" } } } },
-}
 return M

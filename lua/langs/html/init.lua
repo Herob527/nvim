@@ -14,11 +14,8 @@ M.mason.lspconfig = {
 	"html",
 }
 
-M.mason.null_ls = {
+M.conform = {
 	"prettierd",
 }
 
-M.null_ls = {
-	formatting = { { program = "prettierd", with = { filetypes = { "html" } } } },
-}
 return M
