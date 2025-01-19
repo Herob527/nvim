@@ -110,7 +110,7 @@ M.init = function()
 			["<C-b>"] = cmp.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.abort(),
-			["<Enter>"] = cmp.mapping.confirm({ select = true }),
+			["<Enter>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 			["<C-t>"] = cmp.mapping(function(fallback)
 				if luasnip.expand_or_jumpable() then
 					luasnip.expand_or_jump()
