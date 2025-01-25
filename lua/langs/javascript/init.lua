@@ -52,6 +52,17 @@ M.lspconfig = {
 	},
 	{
 		lsp = "biome",
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"svelte",
+			"astro",
+			"graphql",
+		},
 	},
 }
 
