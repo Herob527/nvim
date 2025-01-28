@@ -18,12 +18,16 @@ M.lspconfig = {
 			},
 		},
 	},
+	{
+		lsp = "gitlab_ci_ls",
+	},
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
 	"yamlls",
+	"gitlab_ci_ls",
 }
 
 M.conform = {
