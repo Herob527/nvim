@@ -1,4 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
@@ -109,6 +110,34 @@ local lazyinstalls = {
 				desc = "LSP Len Toggle",
 			},
 		},
+	},
+	{
+		"jinh0/eyeliner.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("eyeliner").setup({
+				-- show highlights only after keypress
+				highlight_on_key = true,
+
+				-- dim all other characters if set to true (recommended!)
+				dim = true,
+
+				max_length = 9999,
+
+				-- filetypes for which eyeliner should be disabled;
+				-- e.g., to disable on help files:
+				-- disabled_filetypes = {"help"}
+				disabled_filetypes = {},
+
+				-- buftypes for which eyeliner should be disabled
+				-- e.g., disabled_buftypes = {"nofile"}
+				disabled_buftypes = {},
+
+				-- add eyeliner to f/F/t/T keymaps;
+				-- see section on advanced configuration for more information
+				default_keymaps = true,
+			})
+		end,
 	},
 	require("lazy.config_parts.mason_lspconfig"),
 }
