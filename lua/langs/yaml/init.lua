@@ -31,7 +31,7 @@ M.mason.lspconfig = {
 }
 
 M.conform = {
-	"yamlfmt",
+	-- "yamlfmt",
 }
 
 M.linter = {
