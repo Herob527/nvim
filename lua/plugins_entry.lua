@@ -127,11 +127,7 @@ local lazyinstalls = {
 				-- filetypes for which eyeliner should be disabled;
 				-- e.g., to disable on help files:
 				-- disabled_filetypes = {"help"}
-				disabled_filetypes = {},
-
-				-- buftypes for which eyeliner should be disabled
-				-- e.g., disabled_buftypes = {"nofile"}
-				disabled_buftypes = {},
+				disable_buftypes = { "nofile", "NvimTree" },
 
 				-- add eyeliner to f/F/t/T keymaps;
 				-- see section on advanced configuration for more information
