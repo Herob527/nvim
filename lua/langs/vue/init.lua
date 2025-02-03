@@ -27,6 +27,7 @@ M.lspconfig = {
 		},
 	},
 	{ lsp = "volar" },
+	{ lsp = "eslint" },
 }
 
 M.mason = {
@@ -35,10 +36,9 @@ M.mason = {
 
 M.mason.lspconfig = {
 	"volar",
+	"eslint",
 }
 
-M.linter = { "eslint_d" }
-
-M.conform = { "eslint_d", "prettierd" }
+M.conform = { "prettierd" }
 
 return M
