@@ -135,6 +135,19 @@ local lazyinstalls = {
 			})
 		end,
 	},
+
+	{
+		"monkoose/neocodeium",
+		event = "VeryLazy",
+		config = function()
+			local neocodeium = require("neocodeium")
+			neocodeium.setup()
+			vim.keymap.set("i", "<A-f>", neocodeium.accept)
+			vim.keymap.set("i", "<A-e>", function()
+				neocodeium.cycle_or_complete()
+			end)
+		end,
+	},
 	require("lazy.config_parts.mason_lspconfig"),
 }
 
