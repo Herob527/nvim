@@ -60,6 +60,7 @@ M.init = function()
 					nvim_lsp = "[LSP]",
 					nvim_lsp_signature_help = "[LSP-Sign]",
 					spell = "[Spell]",
+					rg = "[RG]",
 					luasnip = "[Luasnip]",
 					path = "[Path]",
 					buffer = "[Buffer]",
@@ -77,6 +78,7 @@ M.init = function()
 		sources = cmp.config.sources({
 			{ name = "luasnip" },
 			{ name = "cmp-tw2css" },
+			{ name = "rg" },
 			{ name = "hrsh7th/cmp-cmdline" },
 			{
 				name = "nvim_lsp",
@@ -152,6 +154,7 @@ M.config = {
 		{ "saadparwaiz1/cmp_luasnip" },
 		{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 		{ "f3fora/cmp-spell" },
+		{ "lukas-reineke/cmp-rg" },
 		{
 			"zanadoman/codeium.nvim",
 			config = function()
