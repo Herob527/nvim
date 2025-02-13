@@ -39,3 +39,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		vim.bo.filetype = "yaml.gitlab"
 	end,
 })
+if vim.g.neovide then
+	vim.g.neovide_cursor_animation_length = 0
+	vim.o.guifont = "Source Code Pro:h10" -- text below applies for VimScript
+end
