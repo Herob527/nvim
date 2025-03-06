@@ -45,9 +45,6 @@ M.lspconfig = {
 			"typescript",
 			"typescriptreact",
 			"typescript.tsx",
-			"svelte",
-			"astro",
-			"graphql",
 		},
 	},
 	{
