@@ -20,7 +20,7 @@ M.mason.lspconfig = {
 }
 
 M.conform = {
-	"prettierd",
+	{ name = "prettierd", requires = { ".prettierc" } },
 }
 
 return M

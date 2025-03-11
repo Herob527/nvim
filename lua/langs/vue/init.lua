@@ -39,6 +39,8 @@ M.mason.lspconfig = {
 	"eslint",
 }
 
-M.conform = { "prettierd" }
+M.conform = {
+	{ name = "prettierd", requires = { ".prettierc" } },
+}
 
 return M
