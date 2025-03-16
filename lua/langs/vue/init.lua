@@ -40,7 +40,7 @@ M.mason.lspconfig = {
 }
 
 M.conform = {
-	{ name = "prettierd", requires = { ".prettierc" } },
+	{ name = "prettierd", requires = { ".prettierc", "prettier.config.mjs" } },
 }
 
 return M
