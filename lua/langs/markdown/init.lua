@@ -14,7 +14,7 @@ M.mason.lspconfig = {
 }
 
 M.conform = {
-	{ name = "prettierd", requires = { ".prettierc" } },
+	"prettierd",
 	"markdownlint",
 }
 
