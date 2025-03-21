@@ -14,9 +14,9 @@ M.lspconfig = {
 						{
 							name = "@vue/typescript-plugin",
 							location = vue_plugin_path,
-							languages = { "vue" },
-							configNamespace = "typescript",
+							languages = { "typescript", "javascript", "vue" },
 							enableForWorkspaceTypeScriptVersions = true,
+							configNamespace = "typescript",
 						},
 					},
 				},
