@@ -1,5 +1,7 @@
 vim.keymap.set({ "n" }, "<leader>ha", vim.lsp.buf.hover, { desc = "Trigger [h]over [a]ction" })
-vim.keymap.set({ "n" }, "<leader>,", vim.lsp.buf.format, { desc = "Trigger [L]SP formatting" })
+vim.keymap.set({ "n", "v" }, "<leader>,", function()
+	require("conform").format({ async = true })
+end, { desc = "Trigger [L]SP formatting" })
 
 vim.keymap.set({ "n" }, "<leader>ef", function()
 	if not vim.fn.exists(":VtsExec") == 2 then
