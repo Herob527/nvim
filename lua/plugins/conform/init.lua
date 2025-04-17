@@ -4,7 +4,7 @@ M.init = function()
 	local langs = require("utils.langs_table")
 	local project_marker = { ".git", "package.json", "pyproject.toml" }
 	local project_root = vim.fs.root(0, project_marker)
-	local test = vim.iter(langs)
+	local langs_data = vim.iter(langs)
 		:map(function(lang, content)
 			if content.conform == nil or vim.tbl_isempty(content.conform) then
 				return nil
@@ -35,8 +35,13 @@ M.init = function()
 
 	local formatters = {}
 
-	for k in pairs(test) do
-		formatters = vim.tbl_extend("force", formatters, test[k])
+	for k in pairs(langs_data) do
+		formatters = vim.tbl_extend("force", formatters, langs_data[k])
+	end
+
+	local prettierd_langs = { "typescript", "typescriptreact", "javascript", "javascriptreact" }
+	for _, lang in ipairs(prettierd_langs) do
+		formatters[lang] = { "prettierd" }
 	end
 
 	require("conform").setup({
