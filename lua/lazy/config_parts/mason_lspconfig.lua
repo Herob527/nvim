@@ -76,7 +76,7 @@ return {
 					capabilities = capabilities,
 				}
 				if lsp_data.settings then
-					params.settings = lsp_data.settings
+					params.settings = type(lsp_data.settings) == "function" and lsp_data.settings() or lsp_data.settings
 				end
 				if lsp_data.init_options then
 					params.init_options = lsp_data.init_options
