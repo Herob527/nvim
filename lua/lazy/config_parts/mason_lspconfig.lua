@@ -4,10 +4,10 @@ local mason_lspconfig = {
 	config = function()
 		local mason_lsp = require("mason-lspconfig")
 
-		local langs_table = require("utils.langs_table")
+		local langs = require("utils.langs_table").langs_iterator()
 		local mason_lspconfig_entries = {}
-		for _, data in pairs(langs_table) do
-			for _, lspdata in pairs(data.mason.lspconfig) do
+		for data in langs do
+			for _, lspdata in pairs(data[2].mason.lspconfig or {}) do
 				table.insert(mason_lspconfig_entries, lspdata)
 			end
 		end
@@ -23,11 +23,11 @@ local mason_lspconfig = {
 }
 
 local lsp_config_iterator = function()
-	local langs_table = require("utils.langs_table")
+	local langs_table = require("utils.langs_table").langs_iterator()
 	local languages = {}
 
-	for lang, init in pairs(langs_table) do
-		table.insert(languages, { language = lang, init = init })
+	for lang in langs_table do
+		table.insert(languages, { language = lang[1], init = lang[2] })
 	end
 
 	local lang_idx = 1

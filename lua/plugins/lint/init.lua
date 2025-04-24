@@ -1,9 +1,11 @@
 local M = {}
 
 M.init = function()
-	local langs = require("utils.langs_table")
+	local langs = require("utils.langs_table").langs_iterator()
 	local test = vim.iter(langs)
-		:map(function(lang, content)
+		:map(function(data)
+			local lang = data[1]
+			local content = data[2]
 			if content.linter == nil then
 				return nil
 			else

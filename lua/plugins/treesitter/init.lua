@@ -1,12 +1,12 @@
 local M = {}
 
 M.init = function()
-	local langs = require("utils.langs_table")
+	local langs = require("utils.langs_table").langs_iterator()
 
 	local ensure_installed = { "c", "vim", "markdown", "markdown_inline" }
 
-	for _, val in pairs(langs) do
-		for _, entry in pairs(val.treesitter) do
+	for val in langs do
+		for _, entry in pairs(val[2].treesitter or {}) do
 			table.insert(ensure_installed, entry)
 		end
 	end

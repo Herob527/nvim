@@ -1,22 +1,39 @@
-local langs_table = {
-	lua = require("langs.lua.init"),
-	rust = require("langs.rust.init"),
-	javascript = require("langs.javascript.init"),
-	css = require("langs.css.init"),
-	html = require("langs.html.init"),
-	tailwindcss = require("langs.tailwindcss.init"),
-	python = require("langs.python.init"),
-	json = require("langs.json.init"),
-	yaml = require("langs.yaml.init"),
-	markdown = require("langs.markdown.init"),
-	graphql = require("langs.graphql.init"),
-	vue = require("langs.vue.init"),
-	sh = require("langs.sh.init"),
-	dockerfile = require("langs.dockerfile.init"),
-	astro = require("langs.astro.init"),
-	prose = require("langs.prose.init"),
-	terraform = require("langs.terraform.init"),
-	haskell = require("langs.haskell.init"),
-	cs = require("langs.cs.init"),
-}
-return langs_table
+local M = {}
+
+M.langs_iterator = function()
+	local langs_codes = {
+		"lua",
+		"rust",
+		"javascript",
+		"css",
+		"html",
+		"tailwindcss",
+		"python",
+		"json",
+		"yaml",
+		"markdown",
+		"graphql",
+		"vue",
+		"sh",
+		"dockerfile",
+		"astro",
+		"prose",
+		"terraform",
+		"haskell",
+		"cs",
+	}
+
+	local index = 1
+	return function()
+		while true do
+			if index > #langs_codes then
+				return nil
+			end
+			local lang = langs_codes[index]
+			index = index + 1
+			return { lang, require("langs." .. lang .. ".init") }
+		end
+	end
+end
+
+return M

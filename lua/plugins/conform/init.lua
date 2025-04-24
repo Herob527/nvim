@@ -1,11 +1,13 @@
 local M = {}
 
 M.init = function()
-	local langs = require("utils.langs_table")
+	local langs = require("utils.langs_table").langs_iterator()
 	local project_marker = { ".git", "package.json", "pyproject.toml" }
 	local project_root = vim.fs.root(0, project_marker)
 	local langs_data = vim.iter(langs)
-		:map(function(lang, content)
+		:map(function(data)
+			local lang = data[1]
+			local content = data[2]
 			if content.conform == nil or vim.tbl_isempty(content.conform) then
 				return nil
 			-- TODO: Make this flexible allowing more formatters follow this
