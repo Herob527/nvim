@@ -1,7 +1,5 @@
 local M = {}
 
-M.treesitter = {}
-
 M.lspconfig = {
 	{ lsp = "prosemd_lsp" },
 	{ lsp = "typos_lsp" },
