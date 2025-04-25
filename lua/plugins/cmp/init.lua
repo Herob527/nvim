@@ -38,6 +38,25 @@ local ripgrep = {
 	end,
 }
 
+local minuet = {
+	name = "minuet",
+	module = "minuet.blink",
+	async = true,
+	-- Should match minuet.config.request_timeout * 1000,
+	-- since minuet.config.request_timeout is in seconds
+	timeout_ms = 3000,
+	score_offset = 50, -- Gives minuet higher priority among suggestions
+
+	transform_items = function(_, items)
+		for _, item in ipairs(items) do
+			item.labelDetails = {
+				description = "[AI]",
+			}
+		end
+		return items
+	end,
+}
+
 M.config = {
 	"saghen/blink.cmp",
 	lazy = false,
@@ -147,8 +166,8 @@ M.config = {
 		},
 		snippets = { preset = "luasnip" },
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "ripgrep" },
-			providers = { ripgrep = ripgrep },
+			default = { "lsp", "path", "minuet", "snippets", "buffer", "ripgrep" },
+			providers = { ripgrep = ripgrep, minuet = minuet },
 		},
 
 		fuzzy = { implementation = "prefer_rust" },
@@ -173,6 +192,50 @@ M.config = {
 		"onsails/lspkind.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"mikavilpas/blink-ripgrep.nvim",
+		{
+			"milanglacier/minuet-ai.nvim",
+			config = function()
+				require("minuet").setup({
+					provider = "openai_fim_compatible",
+					n_completions = 1, -- recommend for local model for resource saving
+					-- I recommend beginning with a small context window size and incrementally
+					-- expanding it, depending on your local computing power. A context window
+					-- of 512, serves as an good starting point to estimate your computing
+					-- power. Once you have a reliable estimate of your local computing power,
+					-- you should adjust the context window to a larger value.
+					context_window = 512,
+					provider_options = {
+						openai_fim_compatible = {
+							-- For Windows users, TERM may not be present in environment variables.
+							-- Consider using APPDATA instead.
+							api_key = "TERM",
+							name = "Llama.cpp",
+							end_point = "http://localhost:1234/v1/completions",
+							-- The model is set by the llama-cpp server and cannot be altered
+							-- post-launch.
+							model = "qwen2.5-7b-instruct-1m",
+							optional = {
+								max_tokens = 256,
+								top_p = 0.9,
+							},
+							-- Llama.cpp does not support the `suffix` option in FIM completion.
+							-- Therefore, we must disable it and manually populate the special
+							-- tokens required for FIM completion.
+							-- template = {
+							-- 	prompt = function(context_before_cursor, context_after_cursor, _)
+							-- 		return "<|fim_prefix|>"
+							-- 			.. context_before_cursor
+							-- 			.. "<|fim_suffix|>"
+							-- 			.. context_after_cursor
+							-- 			.. "<|fim_middle|>"
+							-- 	end,
+							-- 	suffix = false,
+							-- },
+						},
+					},
+				})
+			end,
+		},
 	},
 }
 return M
