@@ -21,7 +21,7 @@ local ripgrep = {
 			on_off = nil,
 		},
 		future_features = {
-			issue185_workaround = false,
+			issue185_workaround = true,
 			backend = {
 				use = "ripgrep",
 			},
@@ -31,7 +31,7 @@ local ripgrep = {
 	transform_items = function(_, items)
 		for _, item in ipairs(items) do
 			item.labelDetails = {
-				description = "(rg)",
+				description = "[RG]",
 			}
 		end
 		return items
@@ -65,6 +65,10 @@ M.config = {
 		signature = { enabled = true },
 		-- (Default) Only show the documentation popup when manually triggered
 		completion = {
+			list = { selection = { preselect = true, auto_insert = false } },
+			ghost_text = {
+				enabled = true,
+			},
 			menu = {
 				draw = {
 					components = {
@@ -107,7 +111,11 @@ M.config = {
 		},
 		cmdline = {
 			-- recommended, as the default keymap will only show and select the next item
-			keymap = { preset = "enter" },
+			keymap = {
+				preset = "default",
+				["<Up>"] = { "select_prev", "fallback" },
+				["<Down>"] = { "select_next", "fallback" },
+			},
 			completion = {
 				menu = {
 					auto_show = function(ctx)
