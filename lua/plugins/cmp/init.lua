@@ -1,163 +1,143 @@
 local M = {}
 
-M.init = function()
-	local luasnip = require("luasnip")
-	local cmp = require("cmp")
-
-	local has_words_before = function()
-		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-	end
-
-	local lspkind = require("lspkind")
-	cmp.setup.cmdline("/", {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = {
-			{ name = "buffer" },
+local ripgrep = {
+	module = "blink-ripgrep",
+	name = "Ripgrep",
+	-- the options below are optional, some default values are shown
+	---@module "blink-ripgrep"
+	---@type blink-ripgrep.Options
+	opts = {
+		prefix_min_len = 3,
+		context_size = 5,
+		max_filesize = "1M",
+		project_root_marker = ".git",
+		project_root_fallback = true,
+		search_casing = "--ignore-case",
+		additional_rg_options = {},
+		fallback_to_regex_highlighting = true,
+		ignore_paths = {},
+		additional_paths = {},
+		toggles = {
+			on_off = nil,
 		},
-	})
-
-	cmp.setup.cmdline(":%s/", {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = {
-			{ name = "buffer" },
+		future_features = {
+			issue185_workaround = false,
+			backend = {
+				use = "ripgrep",
+			},
 		},
-	})
-	-- `:` cmdline setup.
-	cmp.setup.cmdline(":", {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({
-			{ name = "path" },
-		}, {
-			{
-				name = "cmdline",
-				option = {
-					ignore_cmds = { "Man", "!" },
+		debug = false,
+	},
+	transform_items = function(_, items)
+		for _, item in ipairs(items) do
+			item.labelDetails = {
+				description = "(rg)",
+			}
+		end
+		return items
+	end,
+}
+
+M.config = {
+	"saghen/blink.cmp",
+	lazy = false,
+	version = "1.*",
+	opts = {
+		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+		-- 'super-tab' for mappings similar to vscode (tab to accept)
+		-- 'enter' for enter to accept
+		-- 'none' for no mappings
+		--
+		-- All presets have the following mappings:
+		-- C-space: Open menu or open docs if already open
+		-- C-n/C-p or Up/Down: Select next/previous item
+		-- C-e: Hide menu
+		-- C-k: Toggle signature help (if signature.enabled = true)
+		--
+		-- See :h blink-cmp-config-keymap for defining your own keymap
+		keymap = { preset = "enter" },
+
+		appearance = {
+			-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+			-- Adjusts spacing to ensure icons are aligned
+			nerd_font_variant = "mono",
+		},
+		signature = { enabled = true },
+		-- (Default) Only show the documentation popup when manually triggered
+		completion = {
+			menu = {
+				draw = {
+					components = {
+						kind_icon = {
+							text = function(ctx)
+								local lspkind = require("lspkind")
+								local icon = ctx.kind_icon
+								if vim.tbl_contains({ "Path" }, ctx.source_name) then
+									local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+									if dev_icon then
+										icon = dev_icon
+									end
+								else
+									icon = lspkind.symbolic(ctx.kind, {
+										mode = "symbol",
+									})
+								end
+
+								return icon .. ctx.icon_gap
+							end,
+
+							-- Optionally, use the highlight groups from nvim-web-devicons
+							-- You can also add the same function for `kind.highlight` if you want to
+							-- keep the highlight groups in sync with the icons.
+							highlight = function(ctx)
+								local hl = ctx.kind_hl
+								if vim.tbl_contains({ "Path" }, ctx.source_name) then
+									local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+									if dev_icon then
+										hl = dev_hl
+									end
+								end
+								return hl
+							end,
+						},
+					},
 				},
 			},
-		}),
-	})
-	cmp.setup({
-		performance = {
-			max_view_entries = 50,
+			documentation = { auto_show = true },
 		},
-
-		window = {
-			completion = { border = "single" },
-			documentation = { border = "single" },
-		},
-		formatting = {
-			format = lspkind.cmp_format({
-				mode = "text_symbol", -- show only symbol annotations
-				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-				ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-				-- The function below will be called before any actual modifications from lspkind
-				-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-				before = function(entry, vim_item)
-					return vim_item
-				end,
+		cmdline = {
+			-- recommended, as the default keymap will only show and select the next item
+			keymap = { preset = "enter" },
+			completion = {
 				menu = {
-					nvim_lsp = "[LSP]",
-					nvim_lsp_signature_help = "[LSP-Sign]",
-					spell = "[Spell]",
-					rg = "[RG]",
-					luasnip = "[Luasnip]",
-					path = "[Path]",
-					buffer = "[Buffer]",
-					["cmp-tw2css"] = "[TW2CSS]",
-					codeium = "[Codeium]",
-				},
-			}),
-		},
-
-		snippet = {
-			expand = function(args)
-				luasnip.lsp_expand(args.body)
-			end,
-		},
-		sources = cmp.config.sources({
-			{ name = "luasnip" },
-			{ name = "cmp-tw2css" },
-			{ name = "rg" },
-			{ name = "hrsh7th/cmp-cmdline" },
-			{
-				name = "nvim_lsp",
-
-				entry_filter = function(entry)
-					return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
-				end,
-			},
-			{ name = "nvim_lsp_signature_help" },
-			{
-				name = "nvim_lua",
-			},
-			{
-				name = "spell",
-				option = {
-					keep_all_entries = false,
-					enable_in_context = function()
-						return true
+					auto_show = function(ctx)
+						return vim.fn.getcmdtype() == ":"
+						-- enable for inputs as well, with:
+						-- or vim.fn.getcmdtype() == '@'
 					end,
 				},
 			},
-			{
-				name = "async_path",
-			},
-			{ name = "buffer" },
-			{ name = "codeium" },
-		}),
-
-		mapping = cmp.mapping.preset.insert({
-			["<C-f>"] = cmp.mapping.scroll_docs(-4),
-			["<C-b>"] = cmp.mapping.scroll_docs(4),
-			["<C-Space>"] = cmp.mapping.complete(),
-			["<C-e>"] = cmp.mapping.abort(),
-			["<Enter>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-			["<C-t>"] = cmp.mapping(function(fallback)
-				if luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
-				elseif cmp.visible() then
-					cmp.select_next_item()
-				elseif has_words_before() then
-					cmp.complete()
-				else
-					fallback()
-				end
-			end, { "i", "s" }),
-
-			["<C-q>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_prev_item()
-				elseif luasnip.jumpable(-1) then
-					luasnip.jump(-1)
-				else
-					fallback()
-				end
-			end, { "i", "s" }),
-		}),
-	})
-end
-
-M.config = {
-	"iguanacucumber/magazine.nvim",
-	name = "nvim-cmp", -- Otherwise highlighting gets messed up
-	event = { "InsertCharPre", "CmdlineEnter" },
-	dependencies = {
-		{ "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
-		{ "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
-		{ "iguanacucumber/mag-buffer", name = "cmp-buffer" },
-		{ "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
-		{ "onsails/lspkind.nvim" },
-		{
-			"https://codeberg.org/FelipeLema/cmp-async-path",
 		},
-		{ "saadparwaiz1/cmp_luasnip" },
-		{ "hrsh7th/cmp-nvim-lsp-signature-help" },
-		{ "f3fora/cmp-spell" },
-		{ "lukas-reineke/cmp-rg" },
-		{ "jcha0713/cmp-tw2css" },
+		snippets = { preset = "luasnip" },
+		-- Default list of enabled providers defined so that you can extend it
+		-- elsewhere in your config, without redefining it, due to `opts_extend`
+		sources = {
+			default = { "lsp", "path", "snippets", "buffer", "ripgrep" },
+			providers = { ripgrep = ripgrep },
+		},
+
+		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+		--
+		-- See the fuzzy documentation for more information
+		fuzzy = { implementation = "prefer_rust" },
+	},
+	opts_extend = { "sources.default" },
+	dependencies = {
 		{
 			"L3MON4D3/LuaSnip",
+			version = "v2.*",
 			config = function()
 				-- Snippets
 				require("snippets.javascript.init")
@@ -170,9 +150,9 @@ M.config = {
 				end, { desc = "Unlink current snippet" })
 			end,
 		},
+		"onsails/lspkind.nvim",
+		"nvim-tree/nvim-web-devicons",
+		"mikavilpas/blink-ripgrep.nvim",
 	},
-	config = function()
-		M.init()
-	end,
 }
 return M
