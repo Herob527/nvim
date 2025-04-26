@@ -121,6 +121,7 @@ M.config = {
 				-- 	enabled = true,
 				-- },
 				menu = {
+					border = "double",
 					draw = {
 						components = {
 							kind_icon = {
