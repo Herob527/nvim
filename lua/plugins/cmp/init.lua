@@ -90,9 +90,9 @@ M.config = {
 		signature = { enabled = true },
 		completion = {
 			list = { selection = { preselect = true, auto_insert = false } },
-			ghost_text = {
-				enabled = true,
-			},
+			-- ghost_text = {
+			-- 	enabled = true,
+			-- },
 			menu = {
 				draw = {
 					components = {
