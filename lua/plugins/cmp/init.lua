@@ -156,7 +156,7 @@ M.config = {
 						},
 					},
 				},
-				documentation = { auto_show = true },
+				documentation = { auto_show = true, window = { border = "double" } },
 			},
 			cmdline = {
 				keymap = {
