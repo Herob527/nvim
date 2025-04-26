@@ -66,8 +66,8 @@ M.config = {
 		local providers = { ripgrep = ripgrep }
 		local sources = { "lsp", "path", "snippets", "buffer", "ripgrep" }
 		if is_ai_service_running then
-			vim.tbl_extend("force", providers, { minuet = minuet })
-			vim.tbl_extend("force", sources, { "minuet" })
+			providers = vim.tbl_extend("force", providers, { minuet = minuet })
+			sources = vim.tbl_extend("force", sources, { "minuet" })
 		end
 		return {
 			keymap = { preset = "enter" },
