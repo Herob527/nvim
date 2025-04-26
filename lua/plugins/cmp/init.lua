@@ -66,7 +66,7 @@ M.config = {
 		local sources = { "lsp", "path", "snippets", "buffer", "ripgrep" }
 		if is_ai_service_running then
 			providers = vim.tbl_extend("keep", providers, { minuet = minuet })
-			sources = vim.tbl_extend("keep", sources, { "minuet" })
+			table.insert(sources, 2, "minuet")
 		end
 		return {
 			keymap = { preset = "enter" },
