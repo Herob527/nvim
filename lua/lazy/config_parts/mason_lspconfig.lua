@@ -67,15 +67,12 @@ return {
 	end,
 	config = function()
 		local lsp_config = require("lspconfig")
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		local iter = lsp_config_iterator()
 
 		for _, lsp_data in iter do
 			if lsp_data.lsp then
-				local params = {
-					capabilities = capabilities,
-				}
+				local params = {}
 				if lsp_data.settings then
 					params.settings = type(lsp_data.settings) == "function" and lsp_data.settings() or lsp_data.settings
 				end
