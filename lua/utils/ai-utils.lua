@@ -2,6 +2,8 @@ local M = {}
 
 M.OPEN_AI_ENDPOINT = "http://localhost:1234/v1"
 
+M.TESTED_MODEL_ID = "gemma-3-4b-it-qat"
+
 local notified = false
 --- @param url string | nil
 M.is_operational = function(url)

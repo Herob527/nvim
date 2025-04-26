@@ -146,7 +146,7 @@ local lazyinstalls = {
 			provider = "openai",
 			openai = {
 				endpoint = require("utils.ai-utils").OPEN_AI_ENDPOINT,
-				model = "qwen2.5-7b-instruct-1m",
+				model = require("utils.ai-utils").TESTED_MODEL_ID,
 				temperature = 0.5,
 				max_tokens = 256,
 			},

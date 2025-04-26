@@ -226,7 +226,7 @@ M.config = {
 							end_point = require("utils.ai-utils").OPEN_AI_ENDPOINT .. "/completions",
 							-- The model is set by the llama-cpp server and cannot be altered
 							-- post-launch.
-							model = "qwen2.5-7b-instruct-1m",
+							model = require("utils.ai-utils").TESTED_MODEL_ID,
 							optional = {
 								max_tokens = 256,
 								top_p = 0.9,
