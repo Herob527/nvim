@@ -59,7 +59,6 @@ local minuet = {
 
 M.config = {
 	"saghen/blink.cmp",
-	lazy = false,
 	version = "1.*",
 	opts = function()
 		local is_ai_service_running = require("utils.ai-utils").is_operational()
