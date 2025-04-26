@@ -136,6 +136,28 @@ local lazyinstalls = {
 		end,
 	},
 
+	{
+		"yetone/avante.nvim",
+		event = "VeryLazy",
+		enabled = function()
+			return require("utils.ai-utils").is_operational()
+		end,
+		opts = {
+			provider = "openai",
+			openai = {
+				endpoint = require("utils.ai-utils").OPEN_AI_ENDPOINT,
+				model = "qwen2.5-7b-instruct-1m",
+				temperature = 0.5,
+				max_tokens = 256,
+			},
+		},
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"stevearc/dressing.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+		},
+	},
 	-- {
 	-- 	"monkoose/neocodeium",
 	-- 	event = "VeryLazy",

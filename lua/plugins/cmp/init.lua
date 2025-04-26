@@ -61,117 +61,126 @@ M.config = {
 	"saghen/blink.cmp",
 	lazy = false,
 	version = "1.*",
-	opts = {
-		keymap = { preset = "enter" },
+	opts = function()
+		local is_ai_service_running = require("utils.ai-utils").is_operational()
+		local providers = { ripgrep = ripgrep }
+		local sources = { "lsp", "path", "snippets", "buffer", "ripgrep" }
+		if is_ai_service_running then
+			vim.tbl_extend("force", providers, { minuet = minuet })
+			vim.tbl_extend("force", sources, { "minuet" })
+		end
+		return {
+			keymap = { preset = "enter" },
 
-		appearance = {
+			appearance = {
 
-			highlight_ns = vim.api.nvim_create_namespace("blink_cmp"),
-			-- Sets the fallback highlight groups to nvim-cmp's highlight groups
-			-- Useful for when your theme doesn't support blink.cmp
-			-- Will be removed in a future release
-			use_nvim_cmp_as_default = false,
-			-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-			-- Adjusts spacing to ensure icons are aligned
-			nerd_font_variant = "mono",
-			kind_icons = {
-				Text = "󰉿",
-				Method = "󰊕",
-				Function = "󰊕",
-				Constructor = "󰒓",
+				highlight_ns = vim.api.nvim_create_namespace("blink_cmp"),
+				-- Sets the fallback highlight groups to nvim-cmp's highlight groups
+				-- Useful for when your theme doesn't support blink.cmp
+				-- Will be removed in a future release
+				use_nvim_cmp_as_default = false,
+				-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+				-- Adjusts spacing to ensure icons are aligned
+				nerd_font_variant = "mono",
+				kind_icons = {
+					Text = "󰉿",
+					Method = "󰊕",
+					Function = "󰊕",
+					Constructor = "󰒓",
 
-				Field = "󰜢",
-				Variable = "󰆦",
-				Property = "󰖷",
+					Field = "󰜢",
+					Variable = "󰆦",
+					Property = "󰖷",
 
-				Class = "󱡠",
-				Interface = "󱡠",
-				Struct = "󱡠",
-				Module = "󰅩",
+					Class = "󱡠",
+					Interface = "󱡠",
+					Struct = "󱡠",
+					Module = "󰅩",
 
-				Unit = "󰪚",
-				Value = "󰦨",
-				Enum = "󰦨",
-				EnumMember = "󰦨",
+					Unit = "󰪚",
+					Value = "󰦨",
+					Enum = "󰦨",
+					EnumMember = "󰦨",
 
-				Keyword = "󰻾",
-				Constant = "󰏿",
+					Keyword = "󰻾",
+					Constant = "󰏿",
 
-				Snippet = "󱄽",
-				Color = "󰏘",
-				File = "󰈔",
-				Reference = "󰬲",
-				Folder = "󰉋",
-				Event = "󱐋",
-				Operator = "󰪚",
-				TypeParameter = "󰬛",
+					Snippet = "󱄽",
+					Color = "󰏘",
+					File = "󰈔",
+					Reference = "󰬲",
+					Folder = "󰉋",
+					Event = "󱐋",
+					Operator = "󰪚",
+					TypeParameter = "󰬛",
+				},
 			},
-		},
-		signature = { enabled = true },
-		completion = {
-			list = { selection = { preselect = true, auto_insert = false } },
-			ghost_text = {
-				enabled = true,
-			},
-			menu = {
-				draw = {
-					components = {
-						kind_icon = {
-							text = function(ctx)
-								local lspkind = require("lspkind")
-								local icon = ctx.kind_icon
-								if vim.tbl_contains({ "Path" }, ctx.source_name) then
-									local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-									if dev_icon then
-										icon = dev_icon
+			signature = { enabled = true },
+			completion = {
+				list = { selection = { preselect = true, auto_insert = false } },
+				ghost_text = {
+					enabled = true,
+				},
+				menu = {
+					draw = {
+						components = {
+							kind_icon = {
+								text = function(ctx)
+									local lspkind = require("lspkind")
+									local icon = ctx.kind_icon
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											icon = dev_icon
+										end
+									else
+										icon = lspkind.symbolic(ctx.kind, {
+											mode = "symbol",
+										})
 									end
-								else
-									icon = lspkind.symbolic(ctx.kind, {
-										mode = "symbol",
-									})
-								end
 
-								return icon .. ctx.icon_gap
-							end,
+									return icon .. ctx.icon_gap
+								end,
 
-							highlight = function(ctx)
-								local hl = ctx.kind_hl
-								if vim.tbl_contains({ "Path" }, ctx.source_name) then
-									local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-									if dev_icon then
-										hl = dev_hl
+								highlight = function(ctx)
+									local hl = ctx.kind_hl
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											hl = dev_hl
+										end
 									end
-								end
-								return hl
-							end,
+									return hl
+								end,
+							},
 						},
 					},
 				},
+				documentation = { auto_show = true },
 			},
-			documentation = { auto_show = true },
-		},
-		cmdline = {
-			keymap = {
-				preset = "default",
-				["<Up>"] = { "select_prev", "fallback" },
-				["<Down>"] = { "select_next", "fallback" },
-			},
-			completion = {
-				menu = {
-					auto_show = function(ctx)
-						return vim.fn.getcmdtype() == ":"
-					end,
+			cmdline = {
+				keymap = {
+					preset = "default",
+					["<Up>"] = { "select_prev", "fallback" },
+					["<Down>"] = { "select_next", "fallback" },
+				},
+				completion = {
+					menu = {
+						auto_show = function(ctx)
+							return vim.fn.getcmdtype() == ":"
+						end,
+					},
 				},
 			},
-		},
-		snippets = { preset = "luasnip" },
-		sources = {
-			default = { "lsp", "path", "minuet", "snippets", "buffer", "ripgrep" },
-			providers = { ripgrep = ripgrep, minuet = minuet },
-		},
+			snippets = { preset = "luasnip" },
+			sources = {
+				default = sources,
+				providers = providers,
+			},
 
-		fuzzy = { implementation = "prefer_rust" },
-	},
+			fuzzy = { implementation = "prefer_rust" },
+		}
+	end,
 	opts_extend = { "sources.default" },
 	dependencies = {
 		{
@@ -194,6 +203,10 @@ M.config = {
 		"mikavilpas/blink-ripgrep.nvim",
 		{
 			"milanglacier/minuet-ai.nvim",
+
+			enabled = function()
+				return require("utils.ai-utils").is_operational()
+			end,
 			config = function()
 				require("minuet").setup({
 					provider = "openai_fim_compatible",
@@ -210,7 +223,7 @@ M.config = {
 							-- Consider using APPDATA instead.
 							api_key = "TERM",
 							name = "Llama.cpp",
-							end_point = "http://localhost:1234/v1/completions",
+							end_point = require("utils.ai-utils").OPEN_AI_ENDPOINT .. "/completions",
 							-- The model is set by the llama-cpp server and cannot be altered
 							-- post-launch.
 							model = "qwen2.5-7b-instruct-1m",
