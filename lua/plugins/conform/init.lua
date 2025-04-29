@@ -1,7 +1,8 @@
 local M = {}
 
 M.init = function()
-	local langs = require("utils.langs_table").langs_iterator()
+	local langs_table = require("utils.langs_table")
+	local langs = langs_table.langs_iterator()
 	local project_marker = { ".git", "package.json", "pyproject.toml" }
 	local project_root = vim.fs.root(0, project_marker)
 	local langs_data = vim.iter(langs)
@@ -36,14 +37,34 @@ M.init = function()
 		:totable()
 
 	local formatters = {}
+	local options = {}
 
 	for k in pairs(langs_data) do
 		formatters = vim.tbl_extend("force", formatters, langs_data[k])
+		local current_lang = vim.tbl_keys(langs_data[k])[1]
+		local lang_data = langs_table.get_lang_data(current_lang)
+		vim.print(vim.tbl_values(langs_data[k])[1])
+		if lang_data.conform_options ~= nil then
+			options = vim.tbl_extend("force", options, langs_table.get_lang_data(current_lang).conform_options)
+		end
+		if
+			lang_data.filetypes ~= nil
+			and vim.iter(lang_data.filetypes):any(function(item)
+				return item == current_lang
+			end)
+		then
+			for key, v in pairs(lang_data.filetypes) do
+				formatters[v] = vim.tbl_values(langs_data[k])[1]
+				-- options = vim.tbl_extend("force", options, lang_data.conform)
+			end
+		end
 	end
+	vim.print(formatters)
 
-	local prettierd_langs = { "typescript", "typescriptreact", "javascript", "javascriptreact" }
-	for _, lang in ipairs(prettierd_langs) do
-		formatters[lang] = { "prettierd" }
+	local xml_langs = { "xml", "svg" }
+
+	for _, lang in ipairs(xml_langs) do
+		formatters[lang] = { "xmlformatter" }
 	end
 
 	require("conform").setup({
@@ -52,6 +73,7 @@ M.init = function()
 			lsp_format = "fallback",
 		},
 		formatters_by_ft = formatters,
+		formatters = options,
 	})
 end
 
