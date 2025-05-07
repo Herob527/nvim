@@ -43,3 +43,50 @@ if vim.g.neovide then
 	vim.g.neovide_cursor_animation_length = 0
 	vim.o.guifont = "Source Code Pro:h10" -- text below applies for VimScript
 end
+
+local path = vim.fn.stdpath("data") .. "/projects"
+
+local function get_project()
+	local root_files = { ".git" }
+
+	--- @type string?
+	local project_root = vim.fs.root(0, root_files)
+	if project_root == nil then
+		vim.print("Project root works only with .git. Init git repo first")
+		return nil, nil
+	end
+	--- @type string
+	local project_name = project_root:match("[^/]+$")
+
+	--- @type string
+	local project_path = path .. "/" .. project_name .. ".json"
+
+	return project_name, project_path
+end
+
+-- Command to create project settings used by nvim
+vim.api.nvim_create_user_command("CreateProjectSettings", function(opts)
+	local project_name, project_path = get_project()
+	if project_name == nil or project_path == nil then
+		return
+	end
+
+	if vim.fn.isdirectory(path) == 0 then
+		vim.fn.mkdir(path, "p")
+	end
+
+	if vim.fn.filereadable(project_path) == 1 then
+		vim.print("Project " .. project_name .. " already exists")
+		return
+	end
+	vim.fn.writefile({ "project_name = " .. project_name }, project_path)
+end, {})
+
+vim.api.nvim_create_user_command("AttachI18nConfig", function(opts)
+	local project_name, project_path = get_project()
+	vim.print(opts)
+	local path, language = opts.fargs[1], opts.fargs[2]
+end)
+
+-- Command to extract selected text into picked i18n file
+vim.api.nvim_create_user_command("ExtractToI18n", function(opts) end, {})
