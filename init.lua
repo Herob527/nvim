@@ -162,6 +162,18 @@ vim.api.nvim_create_user_command("ExtractToI18n", function(opts)
 
 	local translation_data = config_data[project_root]["translations"]
 	local translations_dir = project_root .. "/" .. translation_data.directory
+
+	local captures = vim.treesitter.get_captures_at_pos(0, start_line - 1, start_col - 1)
+	local any_jsx = vim.iter(captures):any(function(capture)
+		return capture.capture:match("jsx")
+	end)
+	local translation_function = translation_data.translationFunction .. '("' .. key .. '")'
+
+	local inside_jsx = any_jsx and "{" .. translation_function .. "}" or translation_data
+
+	-- Replace the selected text with the translation function
+	vim.api.nvim_buf_set_text(0, start_line - 1, start_col - 1, end_line - 1, end_col, { inside_jsx })
+
 	if vim.fn.isdirectory(translations_dir) == 0 then
 		vim.fn.mkdir(translations_dir, "p")
 	end
@@ -171,12 +183,11 @@ vim.api.nvim_create_user_command("ExtractToI18n", function(opts)
 	end
 	local file_content = vim.fn.readfile(file_path)
 	local current_data = vim.fn.json_decode(file_content)
-	current_data[key] = selected_text
+	if current_data[key] then
+		print("Translation already exists")
+		return
+	end
+	current_data[key] = selected_text:gsub('"', ""):gsub("^%s+", ""):gsub("%s+$", "")
 
 	vim.fn.writefile({ vim.fn.json_encode(current_data) }, file_path)
-
-	local translation_function = translation_data.translationFunction .. '("' .. key .. '")'
-
-	-- Replace the selected text with the translation function
-	vim.api.nvim_buf_set_text(0, start_line - 1, start_col - 1, end_line - 1, end_col, { translation_function })
 end, { range = true, nargs = "*" })
