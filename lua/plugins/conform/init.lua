@@ -43,7 +43,6 @@ M.init = function()
 		formatters = vim.tbl_extend("force", formatters, langs_data[k])
 		local current_lang = vim.tbl_keys(langs_data[k])[1]
 		local lang_data = langs_table.get_lang_data(current_lang)
-		vim.print(vim.tbl_values(langs_data[k])[1])
 		if lang_data.conform_options ~= nil then
 			options = vim.tbl_extend("force", options, langs_table.get_lang_data(current_lang).conform_options)
 		end
@@ -59,7 +58,6 @@ M.init = function()
 			end
 		end
 	end
-	vim.print(formatters)
 
 	local xml_langs = { "xml", "svg" }
 
