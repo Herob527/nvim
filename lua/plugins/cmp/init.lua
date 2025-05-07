@@ -21,7 +21,6 @@ local ripgrep = {
 			on_off = nil,
 		},
 		future_features = {
-			issue185_workaround = true,
 			backend = {
 				use = "ripgrep",
 			},

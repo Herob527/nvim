@@ -1,28 +1,29 @@
 local M = {}
 
-M.langs_iterator = function()
-	local langs_codes = {
-		"lua",
-		"rust",
-		"javascript",
-		"css",
-		"html",
-		"tailwindcss",
-		"python",
-		"json",
-		"yaml",
-		"markdown",
-		"graphql",
-		"vue",
-		"sh",
-		"dockerfile",
-		"astro",
-		"prose",
-		"terraform",
-		"haskell",
-		"cs",
-	}
+local langs_codes = {
+	"lua",
+	"rust",
+	"javascript",
+	"css",
+	"html",
+	"tailwindcss",
+	"python",
+	"json",
+	"yaml",
+	"markdown",
+	"graphql",
+	"vue",
+	"sh",
+	"dockerfile",
+	"astro",
+	"prose",
+	"terraform",
+	"haskell",
+	"cs",
+	"xml",
+}
 
+M.langs_iterator = function()
 	local index = 1
 	return function()
 		while true do
@@ -34,6 +35,10 @@ M.langs_iterator = function()
 			return { lang, require("langs." .. lang .. ".init") }
 		end
 	end
+end
+
+M.get_lang_data = function(lang)
+	return require("langs." .. lang .. ".init")
 end
 
 return M

@@ -1,5 +1,7 @@
 local M = {}
 
+M.filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" }
+
 M.treesitter = { "javascript", "typescript", "tsx", "jsdoc" }
 
 M.lspconfig = {

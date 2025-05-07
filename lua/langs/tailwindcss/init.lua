@@ -14,6 +14,7 @@ M.lspconfig = {
 			return {
 				tailwindCSS = {
 					classAttributes = { "class-name", "class", "className", "class:list" },
+					classFunctions = { "cx", "clsx", "cssVar" },
 					experimental = {
 						configFile = apply_nuxt_tailwind and nuxt_tailwind_path or nil,
 					},
