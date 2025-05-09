@@ -169,10 +169,20 @@ vim.api.nvim_create_user_command("ExtractToI18n", function(opts)
 	end)
 	local translation_function = translation_data.translationFunction .. '("' .. key .. '")'
 
-	local inside_jsx = any_jsx and "{" .. translation_function .. "}" or translation_data
+	local inside_jsx = any_jsx and "{" .. translation_function .. "}" or translation_function
 
+	local is_any_character_utf_8 = vim.iter(vim.split(selected_text, "")):any(function(char)
+		return string.byte(char) > 127
+	end)
 	-- Replace the selected text with the translation function
-	vim.api.nvim_buf_set_text(0, start_line - 1, start_col - 1, end_line - 1, end_col, { inside_jsx })
+	vim.api.nvim_buf_set_text(
+		0,
+		start_line - 1,
+		start_col - 1,
+		end_line - 1,
+		is_any_character_utf_8 and end_col - 1 or end_col,
+		{ inside_jsx }
+	)
 
 	if vim.fn.isdirectory(translations_dir) == 0 then
 		vim.fn.mkdir(translations_dir, "p")
@@ -184,10 +194,44 @@ vim.api.nvim_create_user_command("ExtractToI18n", function(opts)
 	local file_content = vim.fn.readfile(file_path)
 	local current_data = vim.fn.json_decode(file_content)
 	if current_data[key] then
-		print("Translation already exists")
+		vim.notify("Translation '" .. key .. "' already exists")
 		return
 	end
-	current_data[key] = selected_text:gsub('"', ""):gsub("^%s+", ""):gsub("%s+$", "")
 
-	vim.fn.writefile({ vim.fn.json_encode(current_data) }, file_path)
+	current_data[key] = selected_text:gsub('"', ""):gsub("^%s+", ""):gsub("%s+$", "")
+	local encoded_json = vim.fn.json_encode(current_data)
+
+	vim.fn.writefile({ encoded_json }, file_path)
 end, { range = true, nargs = "*" })
+
+vim.api.nvim_create_user_command("ExtractSvgToFile", function(opts)
+	local args = vim.split(vim.trim(opts.args):gsub("['\"]", ""), ",")
+	local component_name = args[1]
+	local output_dir = args[2]
+
+	local project_root_file = { "package.json" }
+	local project_root = vim.fs.root(0, project_root_file)
+
+	local svg_path = project_root .. "/" .. output_dir
+
+	local _, start_line, start_col, _ = unpack(vim.fn.getpos("'<"))
+	local _, end_line, end_col, _ = unpack(vim.fn.getpos("'>"))
+
+	--- @type string[]
+	local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+	local joined_lines = table.concat(lines, " "):gsub("{", '"'):gsub("}", '"')
+	local className = joined_lines:match('className="([^"]+)"')
+	local content = { "<" .. component_name .. " " .. (className and "className='" .. className .. "'" or "") .. " />" }
+	joined_lines = joined_lines:gsub('className="([^"]+)"', "")
+
+	vim.print(end_col, content[1]:len())
+
+	vim.api.nvim_buf_set_text(0, start_line - 1, start_col - 1, end_line - 1, end_col, content)
+	local import_text = "import " .. component_name .. " from '" .. output_dir .. "'"
+	vim.api.nvim_buf_set_lines(0, 0, 0, false, { import_text })
+	if vim.fn.filereadable(svg_path) == 0 then
+		vim.fn.writefile({ joined_lines }, svg_path)
+	end
+
+	-- Extract the selected text
+end, { range = true })
