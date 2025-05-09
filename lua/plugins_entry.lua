@@ -109,7 +109,8 @@ local lazyinstalls = {
 
 	{
 		"monkoose/neocodeium",
-		event = "VeryLazy",
+		event = "InsertEnter",
+		cmd = { "NeoCodeium" },
 		config = function()
 			local neocodeium = require("neocodeium")
 			neocodeium.setup()
