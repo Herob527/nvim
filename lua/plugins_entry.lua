@@ -121,6 +121,14 @@ local lazyinstalls = {
 		end,
 	},
 	require("lazy.config_parts.mason_lspconfig"),
+	{
+		dir = "~/.config/nvim/plugins/custom_stuff",
+		dev = true,
+		config = function()
+			require("plugins.custom_stuff.init").setup()
+		end,
+		cmd = { "CreateProjectSettings", "AttachI18nConfig", "ExtractToI18n" },
+	},
 }
 
 local opts = {
