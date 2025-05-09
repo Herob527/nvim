@@ -1,4 +1,5 @@
--- There are commands that I created out of need to automate stuff
+-- There are commands that I created out of need to automate stuff in one project (de-AI it)
+-- I don't expect to use or develop them in the future
 local M = {}
 
 M.setup = function()
