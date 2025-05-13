@@ -61,6 +61,12 @@ M.init = function()
 
 	local xml_langs = { "xml", "svg" }
 
+	local tailwind_langs = { "html", "javascriptreact", "typescriptreact" }
+
+	for _, lang in ipairs(tailwind_langs) do
+		formatters[lang] = vim.tbl_extend("force", formatters[lang] or {}, { "rustywind" })
+	end
+
 	for _, lang in ipairs(xml_langs) do
 		formatters[lang] = { "xmlformatter" }
 	end
