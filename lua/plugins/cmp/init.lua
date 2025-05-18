@@ -6,6 +6,8 @@ local dictionary = {
   -- Make sure this is at least 2.
   -- 3 is recommended
   min_keyword_length = 3,
+  max_items = 3,
+  async = true,
   --- @type blink-cmp-dictionary.Options
   opts = {
     dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
