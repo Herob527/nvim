@@ -76,7 +76,11 @@ M.init = function()
 			timeout_ms = 500,
 			lsp_format = "fallback",
 		},
-		formatters_by_ft = formatters,
+		formatters_by_ft = vim.iter(formatters)
+			:filter(function(data)
+				return data ~= nil
+			end)
+			:totable(),
 		formatters = options,
 	})
 end
