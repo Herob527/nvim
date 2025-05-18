@@ -7,6 +7,7 @@ local dictionary = {
   -- 3 is recommended
   min_keyword_length = 3,
   max_items = 3,
+  score_offset = 20,
   async = true,
   --- @type blink-cmp-dictionary.Options
   opts = {
