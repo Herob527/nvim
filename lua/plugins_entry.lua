@@ -135,7 +135,9 @@ local lazyinstalls = {
 		event = "BufReadPost",
 		opts = function(_, opts)
 			-- Other blankline configuration here
-			return require("indent-rainbowline").make_opts(opts)
+			return require("indent-rainbowline").make_opts(opts, {
+				color_transparency = 0.05,
+			})
 		end,
 		dependencies = {
 			"TheGLander/indent-rainbowline.nvim",
