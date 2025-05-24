@@ -26,7 +26,6 @@ M.lspconfig = {
 			"vue",
 		},
 	},
-	{ lsp = "volar" },
 	{ lsp = "eslint" },
 }
 
@@ -35,7 +34,6 @@ M.mason = {
 }
 
 M.mason.lspconfig = {
-	"volar",
 	"eslint",
 }
 
