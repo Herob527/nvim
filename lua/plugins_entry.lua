@@ -114,7 +114,8 @@ local lazyinstalls = {
 		config = function()
 			local neocodeium = require("neocodeium")
 			neocodeium.setup()
-			vim.keymap.set("i", "<C-q>", neocodeium.accept)
+			local accept_keybind = os.getenv("WEZTERM_UNIX_SOCKET") == nil and "<C-Tab>" or "<C-q>"
+			vim.keymap.set("i", accept_keybind, neocodeium.accept)
 			vim.keymap.set("i", "<A-e>", function()
 				neocodeium.cycle_or_complete()
 			end)
