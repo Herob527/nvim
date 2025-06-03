@@ -1,4 +1,6 @@
-vim.keymap.set({ "n" }, "<leader>ha", vim.lsp.buf.hover, { desc = "Trigger [h]over [a]ction" })
+vim.keymap.set({ "n" }, "<leader>ha", function()
+	vim.lsp.buf.hover({ border = "single", max_height = 25, max_width = 120 })
+end, { desc = "Trigger [h]over [a]ction" })
 vim.keymap.set({ "n", "v" }, "<leader>,", function()
 	require("conform").format({ async = true })
 end, { desc = "Trigger [L]SP formatting" })
