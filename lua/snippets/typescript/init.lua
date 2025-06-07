@@ -1,7 +1,7 @@
 local luasnip = require("luasnip")
 
-local react_component_snippet = require("snippets.javascript.react.react_component")
-local use_state = require("snippets.javascript.react.use_state")
+local react_component_snippet = require("snippets.typescript.react.react_component")
+local use_state = require("snippets.typescript.react.use_state")
 
 local react_snippets = {
 	react_component_snippet,
@@ -14,8 +14,8 @@ for key, val in pairs(react_snippets) do
 	js_snippets[key] = val
 end
 
-luasnip.add_snippets("javascript", js_snippets)
-luasnip.add_snippets("javascriptreact", react_snippets)
+luasnip.add_snippets("typescriptreact", react_snippets)
+luasnip.add_snippets("typescript", js_snippets)
 
 for _, file in
 	ipairs(vim.fn.readdir(vim.fn.stdpath("config") .. "/lua/snippets/console_snippets", [[v:val =~ '\.lua$']]))

@@ -206,6 +206,7 @@ M.config = {
 			config = function()
 				-- Snippets
 				require("snippets.javascript.init")
+				require("snippets.typescript.init")
 				require("snippets.css.init")
 				require("snippets.astro.init")
 				require("snippets.vue.init")

@@ -12,7 +12,11 @@ local react_boilerplate = sn(
 		[[
 import React from 'react';
 
-const {name} = ({{}}) => {{
+interface Props {{
+
+}}
+
+const {name} = ({{}}: Props) => {{
   {}
 }};
 
