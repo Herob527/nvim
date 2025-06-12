@@ -1,5 +1,31 @@
 local M = {}
 
+local lsp = {
+	name = "LSP",
+	module = "blink.cmp.sources.lsp",
+	-- Filter text items from the LSP provider, since we have the buffer provider for that
+	transform_items = function(_, items)
+		return vim.tbl_filter(function(item)
+			return item.kind ~= require("blink.cmp.types").CompletionItemKind.Text
+		end, items)
+	end,
+	opts = { tailwind_color_icon = "██" },
+
+	--- These properties apply to !!ALL sources!!
+	--- NOTE: All of these options may be functions to get dynamic behavior
+	--- See the type definitions for more information
+	enabled = true, -- Whether or not to enable the provider
+	async = true, -- Whether we should show the completions before this provider returns, without waiting for it
+	timeout_ms = 2000, -- How long to wait for the provider to return before showing completions and treating it as asynchronous
+	should_show_items = true, -- Whether or not to show the items
+	max_items = nil, -- Maximum number of items to display in the menu
+	min_keyword_length = 0, -- Minimum number of characters in the keyword to trigger the provider
+	-- If this provider returns 0 items, it will fallback to these providers.
+	-- If multiple providers fallback to the same provider, all of the providers must return 0 items for it to fallback
+	score_offset = 0, -- Boost/penalize the score of the items
+	override = nil, -- Override the source's functions
+}
+
 local dictionary = {
 	module = "blink-cmp-dictionary",
 	name = "Dict",
@@ -193,7 +219,7 @@ M.config = {
 		snippets = { preset = "luasnip" },
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer", "npm", "dictionary", "ripgrep" },
-			providers = { ripgrep = ripgrep, npm = npm, dictionary = dictionary },
+			providers = { lsp = lsp, ripgrep = ripgrep, npm = npm, dictionary = dictionary },
 		},
 
 		fuzzy = { implementation = "prefer_rust" },
