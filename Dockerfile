@@ -5,6 +5,8 @@ COPY . .
 
 RUN mise settings experimental=true
 
-RUN bash -c $(mise generate bootstrap)
+RUN cp /nvim/init.lua /nvim//lua/init.lua
 
-CMD ["nvim"]
+ENTRYPOINT [ "/bin/bash", "-c" ]
+
+CMD ["nvim", "--headless"]
