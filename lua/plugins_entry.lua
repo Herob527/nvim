@@ -83,35 +83,6 @@ local lazyinstalls = {
 		event = "VeryLazy",
 	},
 	{
-		"VidocqH/lsp-lens.nvim",
-		event = "BufRead",
-		opts = {
-			include_declaration = true, -- Reference include declaration
-		},
-		sections = {
-			definition = function(count)
-				return "Definitions: " .. count
-			end,
-			references = function(count)
-				return "References: " .. count
-			end,
-			implements = function(count)
-				return "Implements: " .. count
-			end,
-			git_authors = function(latest_author, count)
-				return " " .. latest_author .. (count - 1 == 0 and "" or (" + " .. count - 1))
-			end,
-		},
-		keys = {
-			{
-				-- LspLensToggle
-				"<leader>uL",
-				"<cmd>LspLensToggle<CR>",
-				desc = "LSP Len Toggle",
-			},
-		},
-	},
-	{
 		"jinh0/eyeliner.nvim",
 		event = "VeryLazy",
 		config = function()
@@ -137,10 +108,17 @@ local lazyinstalls = {
 	},
 
 	{
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		enabled = function()
-			return require("utils.ai-utils").is_operational()
+		"monkoose/neocodeium",
+		event = "InsertEnter",
+		cmd = { "NeoCodeium" },
+		config = function()
+			local neocodeium = require("neocodeium")
+			neocodeium.setup()
+			local accept_keybind = os.getenv("WEZTERM_UNIX_SOCKET") == nil and "<C-Tab>" or "<C-q>"
+			vim.keymap.set("i", accept_keybind, neocodeium.accept)
+			vim.keymap.set("i", "<A-e>", function()
+				neocodeium.cycle_or_complete()
+			end)
 		end,
 		opts = {
 			provider = "openai",
@@ -197,6 +175,28 @@ local lazyinstalls = {
 	-- 	end,
 	-- },
 	require("lazy.config_parts.mason_lspconfig"),
+	{
+		dir = "~/.config/nvim/lua/custom_plugins/custom_stuff",
+		dev = true,
+		config = function()
+			require("custom_plugins.custom_stuff.init").setup()
+		end,
+		event = "VeryLazy",
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		event = "BufReadPost",
+		opts = function(_, opts)
+			-- Other blankline configuration here
+			return require("indent-rainbowline").make_opts(opts, {
+				color_transparency = 0.05,
+			})
+		end,
+		dependencies = {
+			"TheGLander/indent-rainbowline.nvim",
+		},
+	},
 }
 
 local opts = {

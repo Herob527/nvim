@@ -166,9 +166,17 @@ M.init = function()
 	end
 
 	local function check_folders_contains(folders, path)
+		-- Check if folders is nil before attempting to iterate
+		if folders == nil then
+			return false
+		end
+
+		-- Iterate over the folders table safely
 		for _, folder in pairs(folders) do
-			if is_sub_path(path, folder.name) then
-				return true
+			if folder ~= nil and folder.name ~= nil then
+				if is_sub_path(path, folder.name) then
+					return true
+				end
 			end
 		end
 		return false
@@ -215,14 +223,11 @@ M.init = function()
 						match_file_operation_filter(filter, data.old_name, type)
 						and match_file_operation_filter(filter, data.new_name, type)
 					then
-						client.notify(
-							"workspace/didRenameFiles",
-							{
-								files = {
-									{ oldUri = uri_from_path(data.old_name), newUri = uri_from_path(data.new_name) },
-								},
-							}
-						)
+						client.notify("workspace/didRenameFiles", {
+							files = {
+								{ oldUri = uri_from_path(data.old_name), newUri = uri_from_path(data.new_name) },
+							},
+						})
 					end
 				end
 			end

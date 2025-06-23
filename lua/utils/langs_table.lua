@@ -2,6 +2,7 @@ local M = {}
 
 local langs_codes = {
 	"lua",
+	"nginx",
 	"rust",
 	"javascript",
 	"css",

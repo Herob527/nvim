@@ -1,5 +1,77 @@
 local M = {}
 
+local lsp = {
+	name = "LSP",
+	module = "blink.cmp.sources.lsp",
+	-- Filter text items from the LSP provider, since we have the buffer provider for that
+	transform_items = function(_, items)
+		return vim.tbl_filter(function(item)
+			return item.kind ~= require("blink.cmp.types").CompletionItemKind.Text
+		end, items)
+	end,
+	opts = { tailwind_color_icon = "██" },
+
+	--- These properties apply to !!ALL sources!!
+	--- NOTE: All of these options may be functions to get dynamic behavior
+	--- See the type definitions for more information
+	enabled = true, -- Whether or not to enable the provider
+	async = true, -- Whether we should show the completions before this provider returns, without waiting for it
+	timeout_ms = 2000, -- How long to wait for the provider to return before showing completions and treating it as asynchronous
+	should_show_items = true, -- Whether or not to show the items
+	max_items = nil, -- Maximum number of items to display in the menu
+	min_keyword_length = 0, -- Minimum number of characters in the keyword to trigger the provider
+	-- If this provider returns 0 items, it will fallback to these providers.
+	-- If multiple providers fallback to the same provider, all of the providers must return 0 items for it to fallback
+	score_offset = 0, -- Boost/penalize the score of the items
+	override = nil, -- Override the source's functions
+}
+
+local dictionary = {
+	module = "blink-cmp-dictionary",
+	name = "Dict",
+	-- Make sure this is at least 2.
+	-- 3 is recommended
+	min_keyword_length = 3,
+	max_items = 3,
+	score_offset = 20,
+	async = true,
+	--- @type blink-cmp-dictionary.Options
+	opts = {
+		dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
+		-- options for blink-cmp-dictionary
+	},
+	transform_items = function(_, items)
+		for _, item in ipairs(items) do
+			item.labelDetails = {
+				description = "[DICT]",
+			}
+		end
+		return items
+	end,
+}
+
+local npm = {
+	name = "npm",
+	module = "blink-cmp-npm",
+	async = true,
+	-- the options below are optional
+	---@module "blink-cmp-npm"
+	---@type blink-cmp-npm.Options
+	opts = {
+		ignore = {},
+		only_semantic_versions = true,
+		only_latest_version = false,
+	},
+
+	transform_items = function(_, items)
+		for _, item in ipairs(items) do
+			item.labelDetails = {
+				description = "[NPM]",
+			}
+		end
+		return items
+	end,
+}
 local ripgrep = {
 	module = "blink-ripgrep",
 	name = "Ripgrep",
@@ -15,7 +87,7 @@ local ripgrep = {
 		search_casing = "--ignore-case",
 		additional_rg_options = {},
 		fallback_to_regex_highlighting = true,
-		ignore_paths = {},
+		ignore_paths = { "package-lock.json", "pnpm-lock.yaml", "bun.lock", "yarn.lock" },
 		additional_paths = {},
 		toggles = {
 			on_off = nil,
@@ -171,11 +243,12 @@ M.config = {
 					},
 				},
 			},
-			snippets = { preset = "luasnip" },
-			sources = {
-				default = sources,
-				providers = providers,
-			},
+		},
+		snippets = { preset = "luasnip" },
+		sources = {
+			default = { "lsp", "path", "snippets", "buffer", "npm", "dictionary", "ripgrep" },
+			providers = { lsp = lsp, ripgrep = ripgrep, npm = npm, dictionary = dictionary },
+		},
 
 			fuzzy = { implementation = "prefer_rust" },
 		}
@@ -188,6 +261,7 @@ M.config = {
 			config = function()
 				-- Snippets
 				require("snippets.javascript.init")
+				require("snippets.typescript.init")
 				require("snippets.css.init")
 				require("snippets.astro.init")
 				require("snippets.vue.init")
@@ -200,54 +274,8 @@ M.config = {
 		"onsails/lspkind.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"mikavilpas/blink-ripgrep.nvim",
-		{
-			"milanglacier/minuet-ai.nvim",
-
-			enabled = function()
-				return require("utils.ai-utils").is_operational()
-			end,
-			config = function()
-				require("minuet").setup({
-					provider = "openai_fim_compatible",
-					n_completions = 1, -- recommend for local model for resource saving
-					-- I recommend beginning with a small context window size and incrementally
-					-- expanding it, depending on your local computing power. A context window
-					-- of 512, serves as an good starting point to estimate your computing
-					-- power. Once you have a reliable estimate of your local computing power,
-					-- you should adjust the context window to a larger value.
-					context_window = 512,
-					provider_options = {
-						openai_fim_compatible = {
-							-- For Windows users, TERM may not be present in environment variables.
-							-- Consider using APPDATA instead.
-							api_key = "TERM",
-							name = "Llama.cpp",
-							end_point = require("utils.ai-utils").OPEN_AI_ENDPOINT .. "/completions",
-							-- The model is set by the llama-cpp server and cannot be altered
-							-- post-launch.
-							model = require("utils.ai-utils").TESTED_MODEL_ID,
-							optional = {
-								max_tokens = 256,
-								top_p = 0.9,
-							},
-							-- Llama.cpp does not support the `suffix` option in FIM completion.
-							-- Therefore, we must disable it and manually populate the special
-							-- tokens required for FIM completion.
-							-- template = {
-							-- 	prompt = function(context_before_cursor, context_after_cursor, _)
-							-- 		return "<|fim_prefix|>"
-							-- 			.. context_before_cursor
-							-- 			.. "<|fim_suffix|>"
-							-- 			.. context_after_cursor
-							-- 			.. "<|fim_middle|>"
-							-- 	end,
-							-- 	suffix = false,
-							-- },
-						},
-					},
-				})
-			end,
-		},
+		"alexandre-abrioux/blink-cmp-npm.nvim",
+		"Kaiser-Yang/blink-cmp-dictionary",
 	},
 }
 return M
