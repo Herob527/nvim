@@ -141,6 +141,46 @@ local lazyinstalls = {
 			"TheGLander/indent-rainbowline.nvim",
 		},
 	},
+	{
+		"olimorris/codecompanion.nvim",
+		opts = {},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		event = "VeryLazy",
+		config = function()
+			local ai_utils = require("utils.ai-utils")
+			require("codecompanion").setup({
+				strategies = {
+					chat = {
+						-- Explicitly set the adapter to "ollama" for the chat strategy.
+						-- This tells the 'chat' strategy to use the 'ollama' adapter defined above.
+						adapter = "ollama",
+						-- The 'provider' is also set to "ollama" for consistency.
+						provider = "ollama",
+
+						-- Simple system prompt as mcphub is excluded for this test.
+						system_prompt = 'You are an AI programming assistant named "CodeCompanion". You are currently plugged into the Neovim text editor.',
+					},
+				},
+				adapters = {
+					ollama = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							model = ai_utils.TESTED_MODEL_ID,
+							env = {
+								url = ai_utils.OPEN_AI_ENDPOINT,
+								api_key = "TERM",
+							},
+							parameters = {
+								sync = true,
+							},
+						})
+					end,
+				},
+			})
+		end,
+	},
 }
 
 local opts = {

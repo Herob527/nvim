@@ -2,7 +2,7 @@ local M = {}
 
 M.OPEN_AI_ENDPOINT = "http://localhost:11434"
 
-M.TESTED_MODEL_ID = "deepseek-r1:1.5b"
+M.TESTED_MODEL_ID = "gemma3:1b-it-qat"
 
 local notified = false
 --- @param url string | nil
