@@ -109,36 +109,12 @@ local ripgrep = {
 	end,
 }
 
-local minuet = {
-	name = "minuet",
-	module = "minuet.blink",
-	async = true,
-	-- Should match minuet.config.request_timeout * 1000,
-	-- since minuet.config.request_timeout is in seconds
-	timeout_ms = 3000,
-	score_offset = 50, -- Gives minuet higher priority among suggestions
-
-	transform_items = function(_, items)
-		for _, item in ipairs(items) do
-			item.labelDetails = {
-				description = "[AI]",
-			}
-		end
-		return items
-	end,
-}
-
 M.config = {
 	"saghen/blink.cmp",
 	version = "1.*",
 	opts = function()
-		local is_ai_service_running = require("utils.ai-utils").is_operational()
-		local providers = { ripgrep = ripgrep }
+		local providers = { lsp = lsp, ripgrep = ripgrep, npm = npm, dictionary = dictionary }
 		local sources = { "lsp", "path", "snippets", "buffer", "ripgrep" }
-		if is_ai_service_running then
-			providers = vim.tbl_extend("keep", providers, { minuet = minuet })
-			table.insert(sources, 2, "minuet")
-		end
 		return {
 			keymap = { preset = "enter" },
 
@@ -187,6 +163,7 @@ M.config = {
 			},
 			signature = { enabled = true },
 			completion = {
+				trigger = { prefetch_on_insert = false },
 				list = { selection = { preselect = true, auto_insert = false } },
 				-- ghost_text = {
 				-- 	enabled = true,
@@ -243,12 +220,12 @@ M.config = {
 					},
 				},
 			},
-		},
-		snippets = { preset = "luasnip" },
-		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "npm", "dictionary", "ripgrep" },
-			providers = { lsp = lsp, ripgrep = ripgrep, npm = npm, dictionary = dictionary },
-		},
+
+			snippets = { preset = "luasnip" },
+			sources = {
+				default = sources,
+				providers = providers,
+			},
 
 			fuzzy = { implementation = "prefer_rust" },
 		}
