@@ -1,20 +1,22 @@
 local M = {}
 
-M.OPEN_AI_ENDPOINT = "http://localhost:1234/v1"
+M.OPEN_AI_ENDPOINT = "http://localhost:11434"
 
-M.TESTED_MODEL_ID = "gemma-3-4b-it-qat"
+M.TESTED_MODEL_ID = "deepseek-r1:1.5b"
 
 local notified = false
 --- @param url string | nil
 M.is_operational = function(url)
 	local response = vim.fn.systemlist({
 		"curl",
+		"-X",
+		"GET",
 		"-s", -- silent mode
 		"-w",
 		"%{http_code}", -- show only status code
 		"-o",
 		"/dev/null", -- suppress output
-		url or M.OPEN_AI_ENDPOINT,
+		url or M.OPEN_AI_ENDPOINT .. "/models",
 	})[1]
 	local is_running = tonumber(response) == 200
 	if not notified and not is_running then
