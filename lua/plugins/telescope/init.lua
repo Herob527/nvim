@@ -44,7 +44,7 @@ M.config = {
 	keys = {
 
 		{ "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "[F]ind [f]iles" },
-		{ "<leader>fg", "<cmd>Telescope live_grep<CR>", desc = "[F]ind [g]reps" },
+		{ "<leader>fg", "<cmd>Telescope live_grep<CR>", desc = "[F]ind strin[g]s" },
 		{ "<leader>fb", "<cmd>Telescope buffers<CR>", desc = "[F]ind [b]uffers" },
 		{ "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "[F]ind [h]elp" },
 		{ "<leader>fr", "<cmd>Telescope lsp_references<CR>", desc = "[F]ind [r]eferences" },
