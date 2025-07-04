@@ -29,7 +29,7 @@ M.init = function()
 		pickers = {
 			find_files = {
 				hidden = true,
-				find_command = { "rg", "--files" },
+				find_command = { "fd", "--type", "file", "--hidden" },
 			},
 			live_grep = {
 				debounce = 250,
