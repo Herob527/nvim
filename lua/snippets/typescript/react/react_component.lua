@@ -25,7 +25,7 @@ const {name} = ({{}}: Props) => {{
 		{
 			name = d(1, function()
 				-- Get name of current file
-				return s(nil, t(vim.fn.expand("%:r:t")))
+				return s(nil, t(vim.fn.expand("%:t:r")))
 			end),
 			export_method = d(2, function(args)
 				local component_name = args[1][1]
