@@ -1,12 +1,22 @@
-FROM jdxcode/mise:2025.6.1
+FROM jdxcode/mise:2025.6.1 AS base
 
-WORKDIR /nvim
-COPY . .
+WORKDIR /nvim/.config/nvim
+
+COPY ./mise.toml ./mise.toml
+
+ENV MISE_CACHE_DIR=/root/.cache
+ENV XDG_CONFIG_HOME=/nvim/.config
 
 RUN mise settings experimental=true
 
-RUN cp /nvim/init.lua /nvim/lua/init.lua
+RUN mise activate | bash
 
-ENTRYPOINT [ "/bin/bash", "-c" ]
+RUN mise trust
 
-CMD ["mise","install","&&","nvim", "--headless"]
+RUN --mount=type=cache,target=/root/.cache mise install -y
+
+FROM base AS final
+
+COPY . ./
+
+ENTRYPOINT ["./entrypoint.sh"]
