@@ -1,4 +1,3 @@
 #!/bin/bash
 
-echo $(pwd)
-nvim
+echo "Running entrypoint.sh"
