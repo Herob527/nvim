@@ -123,7 +123,7 @@ local lazyinstalls = {
 	},
 	require("lazy.config_parts.mason_lspconfig"),
 	{
-		dir = "~/.config/nvim/lua/custom_plugins/custom_stuff",
+		dir = (os.getenv("XDG_CONFIG_HOME") or "~/.config") .. "/nvim/lua/custom_plugins/custom_stuff",
 		dev = true,
 		config = function()
 			require("custom_plugins.custom_stuff.init").setup()
