@@ -1,22 +1,20 @@
 FROM jdxcode/mise:2025.6.1 AS base
-
 WORKDIR /nvim/.config/nvim
 
+# Set environment variables early
+ENV MISE_EXPERIMENTAL=true
+ENV XDG_CONFIG_HOME=/nvim/.config
+ENV XDG_DATA_HOME=/nvim/.local/share
+
+# Copy only mise.toml first for better caching
 COPY ./mise.toml ./mise.toml
 
-ENV MISE_CACHE_DIR=/root/.cache
-ENV XDG_CONFIG_HOME=/nvim/.config
-
-RUN mise settings experimental=true
-
-RUN mise activate | bash
-
-RUN mise trust
-
-RUN --mount=type=cache,target=/root/.cache mise install -y
+# Use BuildKit cache mount for mise's actual cache directory
+RUN --mount=type=cache,target=/mise \
+  --mount=type=cache,target=/root/.cache/mise \
+  mise trust && mise install
 
 FROM base AS final
-
+# Copy the rest of your files
 COPY . ./
-
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/bin/bash"]
