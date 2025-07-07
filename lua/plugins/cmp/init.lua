@@ -52,6 +52,7 @@ local dictionary = {
 
 local npm = {
 	name = "npm",
+
 	module = "blink-cmp-npm",
 	async = true,
 	-- the options below are optional
@@ -75,6 +76,8 @@ local npm = {
 local ripgrep = {
 	module = "blink-ripgrep",
 	name = "Ripgrep",
+
+	max_items = 3,
 	-- the options below are optional, some default values are shown
 	---@module "blink-ripgrep"
 	---@type blink-ripgrep.Options
@@ -160,7 +163,7 @@ M.config = {
 		},
 		signature = { enabled = true },
 		completion = {
-			list = { selection = { preselect = true, auto_insert = false } },
+			list = { max_items = 50, selection = { preselect = true, auto_insert = false } },
 			-- ghost_text = {
 			-- 	enabled = true,
 			-- },
