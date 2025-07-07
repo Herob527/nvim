@@ -251,5 +251,6 @@ M.config = {
 		"alexandre-abrioux/blink-cmp-npm.nvim",
 		"Kaiser-Yang/blink-cmp-dictionary",
 	},
+	event = { "InsertEnter", "CmdlineEnter" },
 }
 return M
