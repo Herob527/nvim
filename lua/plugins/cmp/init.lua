@@ -4,10 +4,18 @@ local lsp = {
 	name = "LSP",
 	module = "blink.cmp.sources.lsp",
 	-- Filter text items from the LSP provider, since we have the buffer provider for that
-	transform_items = function(_, items)
-		return vim.tbl_filter(function(item)
-			return item.kind ~= require("blink.cmp.types").CompletionItemKind.Text
-		end, items)
+	transform_items = function(ctx, items)
+		if not ctx.seen then
+			ctx.seen = {}
+		end
+		local function filter(item)
+			if item.label and ctx.seen[item.label] then
+				return false
+			end
+			ctx.seen[item.label] = true
+			return true
+		end
+		return vim.iter(items):filter(filter):totable()
 	end,
 	opts = { tailwind_color_icon = "██" },
 
