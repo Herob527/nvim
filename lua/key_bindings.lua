@@ -9,9 +9,14 @@ end, { desc = "Trigger [L]SP formatting" })
 vim.keymap.set({ "n" }, "<leader>ef", function()
 	if not vim.fn.exists(":VtsExec") == 2 then
 		vim.cmd("silent exec ':VtsExec restart_tsserver'")
+		-- vim.cmd("silent exec ':VtsExec reload_project'")
 	end
-	vim.iter(vim.lsp.get_clients()):each(function(client)
-		vim.cmd("silent exec ':LspRestart " .. client.name .. "'")
-	end)
+	vim.iter(vim.lsp.get_clients())
+		:filter(function(client)
+			return client.name ~= "vtsls"
+		end)
+		:each(function(client)
+			vim.cmd("silent exec ':LspRestart " .. client.name .. "'")
+		end)
 	vim.diagnostic.reset()
 end, { desc = "Reset LSP and diagnostics", silent = true })
