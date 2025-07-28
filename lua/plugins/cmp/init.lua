@@ -91,22 +91,20 @@ local ripgrep = {
 	---@type blink-ripgrep.Options
 	opts = {
 		prefix_min_len = 3,
-		context_size = 5,
-		max_filesize = "1M",
 		project_root_marker = ".git",
-		project_root_fallback = true,
-		search_casing = "--ignore-case",
-		additional_rg_options = {},
 		fallback_to_regex_highlighting = true,
-		ignore_paths = { "package-lock.json", "pnpm-lock.yaml", "bun.lock", "yarn.lock" },
-		additional_paths = {},
 		toggles = {
 			on_off = nil,
 		},
-		future_features = {
-			backend = {
-				use = "ripgrep",
-			},
+		backend = {
+			use = "ripgrep",
+			context_size = 5,
+			project_root_fallback = true,
+			additional_rg_options = {},
+			max_filesize = "1M",
+			search_casing = "--ignore-case",
+			ignore_paths = { "package-lock.json", "pnpm-lock.yaml", "bun.lock", "yarn.lock" },
+			additional_paths = {},
 		},
 		debug = false,
 	},
