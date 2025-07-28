@@ -30,7 +30,6 @@ local lazyinstalls = {
 	require("plugins.spectre.init").config,
 	require("plugins.code_action_menu.init").config,
 	require("plugins.nvim_comment.init").config,
-	require("plugins.mini.cursorword").config,
 	require("plugins.which_key.init").config,
 	require("plugins.lint.init").config,
 	require("plugins.conform.init").config,
@@ -140,27 +139,35 @@ local lazyinstalls = {
 		event = "VeryLazy",
 	},
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		event = "BufReadPost",
-		opts = function(_, opts)
-			-- Other blankline configuration here
-			return require("indent-rainbowline").make_opts(opts, {
-				color_transparency = 0.05,
-			})
-		end,
-		dependencies = {
-			"TheGLander/indent-rainbowline.nvim",
-		},
-	},
-	{
 		"nvim-flutter/flutter-tools.nvim",
 		lazy = false,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"stevearc/dressing.nvim", -- optional for vim.ui.select
 		},
 		config = true,
+	},
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			bigfile = { enabled = true },
+			dashboard = { enabled = true },
+			explorer = { enabled = true },
+			indent = { enabled = true },
+			input = { enabled = true },
+			picker = { enabled = true },
+			notifier = { enabled = true },
+			quickfile = { enabled = true },
+			scope = { enabled = true },
+			scroll = { enabled = false },
+			statuscolumn = { enabled = true },
+			words = { enabled = true },
+		},
 	},
 }
 
