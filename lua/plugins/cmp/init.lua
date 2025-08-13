@@ -1,5 +1,16 @@
 local M = {}
 
+local snippets = {
+	name = "LuaSnip",
+	module = "blink.cmp.sources.snippets",
+	enabled = true,
+	async = true,
+	max_items = 5,
+	min_keyword_length = 0,
+	should_show_items = true,
+	score_offset = 50,
+}
+
 local lsp = {
 	name = "LSP",
 	module = "blink.cmp.sources.lsp",
@@ -30,7 +41,7 @@ local lsp = {
 	min_keyword_length = 0, -- Minimum number of characters in the keyword to trigger the provider
 	-- If this provider returns 0 items, it will fallback to these providers.
 	-- If multiple providers fallback to the same provider, all of the providers must return 0 items for it to fallback
-	score_offset = 0, -- Boost/penalize the score of the items
+	score_offset = 30, -- Boost/penalize the score of the items
 	override = nil, -- Override the source's functions
 }
 
@@ -227,8 +238,8 @@ M.config = {
 		},
 		snippets = { preset = "luasnip" },
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "npm", "dictionary", "ripgrep" },
-			providers = { lsp = lsp, ripgrep = ripgrep, npm = npm, dictionary = dictionary },
+			default = { "snippets", "lsp", "path", "buffer", "npm", "dictionary", "ripgrep" },
+			providers = { snippets = snippets, lsp = lsp, ripgrep = ripgrep, npm = npm, dictionary = dictionary },
 		},
 
 		fuzzy = { implementation = "prefer_rust" },
