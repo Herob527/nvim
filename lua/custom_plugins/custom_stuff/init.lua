@@ -42,10 +42,10 @@ M.setup = function()
 			return
 		end
 
-		local directory = args[1]
+		local directory = args[1]:gsub('"', "")
 		local mainLocale = args[2]
 		local translationFunction = args[3]
-		local fileType = args[4]
+		local fileType = args[4]:gsub('"', "")
 
 		local project_root_file = { "package.json" }
 		local project_root = vim.fs.root(0, project_root_file)
