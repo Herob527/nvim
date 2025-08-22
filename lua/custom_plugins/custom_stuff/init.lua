@@ -55,7 +55,11 @@ M.setup = function()
 		end
 
 		local current_data = vim.fn.json_decode(vim.fn.readfile(path))
-		if current_data[project_root]["translations"] ~= nil then
+		if
+			current_data ~= nil
+			and current_data[project_root] ~= nil
+			and current_data[project_root]["translations"] ~= nil
+		then
 			print("Translations already attached")
 			return
 		end
@@ -67,7 +71,7 @@ M.setup = function()
 			translationFunction = translationFunction,
 		}
 		current_data[project_root] =
-			vim.tbl_extend("force", current_data[project_root], { translations = translations_data })
+			vim.tbl_extend("force", current_data[project_root] or {}, { translations = translations_data })
 
 		local json_data = vim.fn.json_encode(current_data)
 		vim.fn.writefile({ json_data }, path)
@@ -114,7 +118,7 @@ M.setup = function()
 		end
 
 		local config_data = vim.fn.json_decode(vim.fn.readfile(path))
-		if not config_data[project_root]["translations"] then
+		if not config_data or not config_data[project_root] or not config_data[project_root]["translations"] then
 			print("No translations configured. Run :AttachI18nConfig with appropriate arguments")
 			return
 		end
@@ -161,6 +165,7 @@ M.setup = function()
 		local encoded_json = vim.fn.json_encode(current_data)
 
 		vim.fn.writefile({ encoded_json }, file_path)
+		os.execute("cat " .. file_path .. " | jq > " .. file_path .. ".tmp && mv " .. file_path .. ".tmp " .. file_path)
 	end, { range = true, nargs = "*" })
 
 	vim.api.nvim_create_user_command("ExtractSvgToFile", function(opts)
