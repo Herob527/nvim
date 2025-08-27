@@ -63,4 +63,8 @@ M.conform = {
 	{ name = "biome", requires = { "biome.json" } },
 }
 
+M.linter = {
+	"biomejs",
+}
+
 return M
