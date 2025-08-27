@@ -49,20 +49,6 @@ M.lspconfig = {
 			"typescript.tsx",
 		},
 	},
-	{
-		lsp = "biome",
-		filetypes = {
-			"javascript",
-			"javascriptreact",
-			"javascript.jsx",
-			"typescript",
-			"typescriptreact",
-			"typescript.tsx",
-			"svelte",
-			"astro",
-			"graphql",
-		},
-	},
 }
 
 M.mason = {}
@@ -70,11 +56,11 @@ M.mason = {}
 M.mason.lspconfig = {
 	"vtsls",
 	"eslint",
-	"biome",
 }
 
 M.conform = {
 	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" } },
+	{ name = "biome", requires = { "biome.json" } },
 }
 
 return M
