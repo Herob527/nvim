@@ -7,9 +7,18 @@ M.init = function()
 	end
 	local map = vim.api.nvim_set_keymap
 
-	local diagnostics_indicator = function(count, level, diagnostics_dict, context)
-		local icon = level:match("error") and " " or " "
-		return " " .. icon .. count
+	local diagnostics_indicator = function(_count, _level, diagnostics_dict, _context)
+		local str = ""
+		if diagnostics_dict == nil then
+			return ""
+		end
+		if diagnostics_dict.error ~= nil and diagnostics_dict.error >= 0 then
+			str = str .. "" .. " " .. diagnostics_dict.error
+		end
+		if diagnostics_dict.warning ~= nil and diagnostics_dict.warning >= 0 then
+			str = str .. " " .. " " .. diagnostics_dict.warning
+		end
+		return str
 	end
 
 	map("n", "<C-l>", "<cmd>:BufferLineCycleNext<cr>", { desc = "Next Tab" })
