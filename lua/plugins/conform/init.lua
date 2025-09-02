@@ -3,7 +3,7 @@ local M = {}
 M.init = function()
 	local langs_table = require("utils.langs_table")
 	local langs = langs_table.langs_iterator()
-	local project_marker = { ".git", "package.json", "pyproject.toml" }
+	local project_marker = { "package.json", "pyproject.toml", ".git" }
 	local project_root = vim.fs.root(0, project_marker)
 	local langs_data = vim.iter(langs)
 		:map(function(data)
