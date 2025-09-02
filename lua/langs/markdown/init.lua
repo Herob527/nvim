@@ -14,7 +14,7 @@ M.mason.lspconfig = {
 }
 
 M.conform = {
-	"prettierd",
+	require("plugins.conform.formatters").prettierd,
 	"markdownlint",
 }
 

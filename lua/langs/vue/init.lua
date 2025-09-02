@@ -38,7 +38,7 @@ M.mason.lspconfig = {
 }
 
 M.conform = {
-	{ name = "prettierd", requires = { ".prettierrc", "prettier.config.mjs" } },
+	require("plugins.conform.formatters").prettierd,
 }
 
 return M
