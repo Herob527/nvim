@@ -49,12 +49,25 @@ M.lspconfig = {
 			"typescript.tsx",
 		},
 	},
+
+	{
+		lsp = "oxlint",
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+		},
+	},
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
 	"vtsls",
+	"oxlint",
 	"eslint",
 }
 
