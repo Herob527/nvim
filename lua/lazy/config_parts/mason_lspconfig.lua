@@ -72,6 +72,9 @@ return {
 		local iter = lsp_config_iterator()
 
 		for _, lsp_data in iter do
+			if lsp_data == nil then
+				goto continue
+			end
 			if lsp_data.lsp then
 				local params = {}
 				if lsp_data.settings then
@@ -88,6 +91,7 @@ return {
 				end
 				lsp_config[lsp_data.lsp].setup(params)
 			end
+			::continue::
 		end
 	end,
 }
