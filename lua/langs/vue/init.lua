@@ -29,12 +29,11 @@ M.lspconfig = {
 	{ lsp = "eslint" },
 }
 
-M.mason = {
-	"vtsls",
-}
+M.mason = {}
 
 M.mason.lspconfig = {
 	"eslint",
+	"vtsls",
 }
 
 M.conform = {
