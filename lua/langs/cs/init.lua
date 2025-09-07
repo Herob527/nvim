@@ -5,7 +5,7 @@ M.treesitter = {
 }
 
 M.lspconfig = {
-	{ lsp = "roslyn" },
+	-- { lsp = "roslyn" },
 	-- { lsp = "csharp_ls" },
 }
 
