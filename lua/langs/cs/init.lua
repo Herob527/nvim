@@ -5,13 +5,17 @@ M.treesitter = {
 }
 
 M.lspconfig = {
-	{ lsp = "csharp_ls" },
+	{ lsp = "roslyn" },
+	-- { lsp = "csharp_ls" },
 }
 
-M.mason = {}
+M.mason = {
+	"roslyn",
+}
 
 M.mason.lspconfig = {
-	"csharp_ls",
+	-- "roslyn",
+	-- "csharp_ls",
 }
 
 return M
