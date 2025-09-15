@@ -12,6 +12,7 @@ M.mason = {}
 
 M.mason.lspconfig = {
 	"bashls",
+	"fish_lsp",
 }
 
 M.conform = {
