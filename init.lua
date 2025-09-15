@@ -46,9 +46,3 @@ end
 -- Configure folding settings
 vim.opt.foldmethod = "marker"
 vim.opt.foldmarker = "#region,#endregion"
-
--- Create autocmd to set fold level when opening files
-vim.api.nvim_create_autocmd("BufRead", {
-	pattern = "*.lua,*.py,*.js",
-	command = "setlocal foldlevel=0",
-})
