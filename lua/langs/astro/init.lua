@@ -12,6 +12,12 @@ M.lspconfig = {
 			"astro",
 		},
 	},
+	{
+		lsp = "oxlint",
+		filetypes = {
+			"astro",
+		},
+	},
 }
 
 M.mason = {}
