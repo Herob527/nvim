@@ -31,7 +31,7 @@ M.mason.lspconfig = {
 }
 
 M.conform = {
-	"rustywind",
+	-- "rustywind",
 }
 
 return M

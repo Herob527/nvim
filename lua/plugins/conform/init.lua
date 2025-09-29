@@ -64,7 +64,7 @@ M.init = function()
 	local tailwind_langs = { "html", "javascriptreact", "typescriptreact" }
 
 	for _, lang in ipairs(tailwind_langs) do
-		table.insert(formatters[lang] or {}, "rustywind")
+		-- table.insert(formatters[lang] or {}, "rustywind")
 	end
 
 	for _, lang in ipairs(xml_langs) do
