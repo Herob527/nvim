@@ -1,7 +1,3 @@
-vim.filetype.add({ extension = { mdx = "mdx" } })
-
-require("plugins_entry")
-
 require("key_bindings")
 require("opts")
 
@@ -10,10 +6,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		if vim.bo.filetype == "tf" then
 			vim.bo.filetype = "terraform"
 		end
+		if vim.bo.filetype:match("nginx") then
+			vim.bo.filetype = "nginx"
+		end
 	end,
 })
 
 vim.filetype.add({
+	extension = { mdx = "mdx" },
 	filename = {
 		[".nvmrc"] = "nvmrc",
 	},
@@ -39,10 +39,5 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		vim.bo.filetype = "yaml.gitlab"
 	end,
 })
-if vim.g.neovide then
-	vim.g.neovide_cursor_animation_length = 0
-	vim.o.guifont = "Source Code Pro:h10" -- text below applies for VimScript
-end
--- Configure folding settings
-vim.opt.foldmethod = "marker"
-vim.opt.foldmarker = "#region,#endregion"
+
+require("plugins_entry")
