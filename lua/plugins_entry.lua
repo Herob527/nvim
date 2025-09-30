@@ -42,7 +42,7 @@ local lazyinstalls = {
 	require("plugins.bigfile.init").config,
 	require("plugins.eyeliner.init").config,
 	require("plugins.neocodeium.init").config,
-	require("lazy.config_parts.mason_lspconfig"),
+	require("plugins.mason.mason_lspconfig"),
 	{
 		dir = "~/.config/nvim/lua/custom_plugins/custom_stuff",
 		dev = true,

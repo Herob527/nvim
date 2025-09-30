@@ -18,7 +18,7 @@ local mason_lspconfig = {
 		})
 	end,
 	dependencies = {
-		require("lazy.config_parts.mason_config"),
+		require("plugins.mason.mason_config"),
 	},
 }
 
