@@ -11,7 +11,7 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"hls",
+	{ name = "hls", package_manager = "github" },
 }
 
 return M

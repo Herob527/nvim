@@ -32,12 +32,12 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"eslint",
-	"vtsls",
+	{ name = "eslint", package_manager = "npm" },
+	{ name = "vtsls", package_manager = "npm" },
 }
 
 M.conform = {
-	require("plugins.conform.formatters").prettierd,
+	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" }, package_manager = "npm" },
 }
 
 return M

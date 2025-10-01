@@ -9,7 +9,7 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"terraformls",
+	{ name = "terraformls", package_manager = "github" },
 }
 
 return M

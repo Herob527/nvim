@@ -16,15 +16,15 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"cssls",
-	"cssmodules_ls",
-	"somesass_ls",
-	"unocss",
-	"stylelint_lsp",
+	{ name = "cssls", package_manager = "npm" },
+	{ name = "cssmodules_ls", package_manager = "npm" },
+	{ name = "somesass_ls", package_manager = "npm" },
+	{ name = "unocss", package_manager = "npm" },
+	{ name = "stylelint_lsp", package_manager = "npm" },
 }
 
 M.conform = {
-	require("plugins.conform.formatters").prettierd,
+	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" }, package_manager = "npm" },
 }
 
 return M

@@ -23,13 +23,13 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"astro",
-	"eslint",
+	{ name = "astro", package_manager = "npm" },
+	{ name = "eslint", package_manager = "npm" },
 }
 
 M.conform = {
-	require("plugins.conform.formatters").prettierd,
-	"rustywind",
+	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" }, package_manager = "npm" },
+	{ name = "rustywind", package_manager = "npm" },
 }
 
 M.linter = {}

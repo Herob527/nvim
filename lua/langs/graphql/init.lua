@@ -11,11 +11,11 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"graphql",
+	{ name = "graphql", package_manager = "npm" },
 }
 
 M.conform = {
-	require("plugins.conform.formatters").prettierd,
+	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" }, package_manager = "npm" },
 }
 
 return M

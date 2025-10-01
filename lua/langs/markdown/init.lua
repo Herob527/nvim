@@ -9,17 +9,17 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"marksman",
-	"mdx_analyzer",
+	{ name = "marksman", package_manager = "github" },
+	{ name = "mdx_analyzer", package_manager = "npm" },
 }
 
 M.conform = {
-	require("plugins.conform.formatters").prettierd,
-	"markdownlint",
+	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" }, package_manager = "npm" },
+	{ name = "markdownlint", package_manager = "npm" },
 }
 
 M.linter = {
-	"markdownlint",
+	{ name = "markdownlint", package_manager = "npm" },
 }
 
 return M

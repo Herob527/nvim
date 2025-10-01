@@ -9,11 +9,11 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"nginx_language_server",
+	{ name = "nginx_language_server", package_manager = "npm" },
 }
 
 M.conform = {
-	"nginxfmt",
+	{ name = "nginxfmt", package_manager = "pip" },
 }
 
 return M

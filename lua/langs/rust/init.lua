@@ -9,7 +9,7 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"rust_analyzer",
+	{ name = "rust_analyzer", package_manager = "github" },
 }
 
 return M

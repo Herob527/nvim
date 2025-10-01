@@ -27,7 +27,7 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"tailwindcss",
+	{ name = "tailwindcss", package_manager = "npm" },
 }
 
 M.conform = {

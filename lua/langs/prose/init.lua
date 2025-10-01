@@ -8,8 +8,8 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"prosemd_lsp",
-	"typos_lsp",
+	{ name = "prosemd_lsp", package_manager = "npm" },
+	{ name = "typos_lsp", package_manager = "github" },
 }
 
 return M

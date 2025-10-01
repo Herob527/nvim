@@ -29,15 +29,15 @@ M.lspconfig = {
 }
 M.mason = {}
 M.mason.lspconfig = {
-	"lua_ls",
+	{ name = "lua_ls", package_manager = "github" },
 }
 
 M.conform = {
-	"stylua",
+	{ name = "stylua", package_manager = "github" },
 }
 
 M.linter = {
-	"selene",
+	{ name = "selene", package_manager = "github" },
 }
 
 return M

@@ -2,14 +2,42 @@ local M = {}
 
 M.init = function()
 	local langs = require("utils.langs_table").langs_iterator()
+
+	local package_manager_map = {
+		npm = "npm",
+		pip = "pip",
+		github = "curl",
+		cargo = "cargo",
+		go = "go",
+	}
+
 	local test = vim.iter(langs)
 		:map(function(data)
 			local lang = data[1]
 			local content = data[2]
 			if content.linter == nil then
 				return nil
+			end
+
+			local linters = {}
+			for _, linter in ipairs(content.linter) do
+				if type(linter) == "table" then
+					-- Check package manager executable
+					local pkg_mgr = linter.package_manager
+					local executable = package_manager_map[pkg_mgr]
+					if executable and vim.fn.executable(executable) == 1 then
+						table.insert(linters, linter.name)
+					end
+				else
+					-- Backward compatibility: if it's just a string, add it
+					table.insert(linters, linter)
+				end
+			end
+
+			if #linters > 0 then
+				return { [lang] = linters }
 			else
-				return { [lang] = content.linter }
+				return nil
 			end
 		end)
 		:filter(function(data)

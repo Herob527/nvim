@@ -66,14 +66,14 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"vtsls",
-	"oxlint",
-	"eslint",
+	{ name = "vtsls", package_manager = "npm" },
+	{ name = "oxlint", package_manager = "npm" },
+	{ name = "eslint", package_manager = "npm" },
 }
 
 M.conform = {
-	require("plugins.conform.formatters").prettierd,
-	-- { name = "biome", requires = { "biome.json" } },
+	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" }, package_manager = "npm" },
+	-- { name = "biome", requires = { "biome.json" }, package_manager = "github" },
 }
 
 return M

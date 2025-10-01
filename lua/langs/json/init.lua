@@ -16,11 +16,11 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"jsonls",
+	{ name = "jsonls", package_manager = "npm" },
 }
 
 M.conform = {
-	"jq",
+	{ name = "jq", package_manager = "github" },
 }
 
 return M

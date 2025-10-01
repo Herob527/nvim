@@ -10,12 +10,12 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"pyright",
-	"ruff",
+	{ name = "pyright", package_manager = "npm" },
+	{ name = "ruff", package_manager = "pip" },
 }
 
 M.conform = {
-	"black",
+	{ name = "black", package_manager = "pip" },
 }
 
 M.dap = {}

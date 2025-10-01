@@ -4,11 +4,28 @@ local mason_lspconfig = {
 	config = function()
 		local mason_lsp = require("mason-lspconfig")
 
+		local package_manager_map = {
+			npm = "npm",
+			pip = "pip",
+			github = "curl",
+			cargo = "cargo",
+			go = "go",
+		}
+
 		local langs = require("utils.langs_table").langs_iterator()
 		local mason_lspconfig_entries = {}
 		for data in langs do
 			for _, lspdata in pairs(data[2].mason.lspconfig or {}) do
-				table.insert(mason_lspconfig_entries, lspdata)
+				if type(lspdata) == "table" then
+					local pkg_mgr = lspdata.package_manager
+					local executable = package_manager_map[pkg_mgr]
+					if executable and vim.fn.executable(executable) == 1 then
+						table.insert(mason_lspconfig_entries, lspdata.name)
+					end
+				else
+					-- Backward compatibility: if it's just a string, add it
+					table.insert(mason_lspconfig_entries, lspdata)
+				end
 			end
 		end
 

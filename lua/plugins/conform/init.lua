@@ -5,30 +5,60 @@ M.init = function()
 	local langs = langs_table.langs_iterator()
 	local project_marker = { "package.json", "pyproject.toml", ".git" }
 	local project_root = vim.fs.root(0, project_marker)
+
+	local package_manager_map = {
+		npm = "npm",
+		pip = "pip",
+		github = "curl",
+		cargo = "cargo",
+		go = "go",
+	}
+
 	local langs_data = vim.iter(langs)
 		:map(function(data)
 			local lang = data[1]
 			local content = data[2]
 			if content.conform == nil or vim.tbl_isempty(content.conform) then
 				return nil
-			-- TODO: Make this flexible allowing more formatters follow this
-			elseif project_root ~= nil and type(content.conform[1]) == "table" then
-				local has_requires = vim.iter(content.conform[1].requires)
-					:map(function(item)
-						return project_root .. "/" .. item
-					end)
-					:any(function(item)
-						return vim.fn.filereadable(item) == 1
-					end)
+			end
 
-				if has_requires then
-					return { [lang] = { content.conform[1].name } }
+			local formatters = {}
+			for _, formatter in ipairs(content.conform) do
+				if type(formatter) == "table" then
+					-- Check package manager executable
+					local pkg_mgr = formatter.package_manager
+					local executable = package_manager_map[pkg_mgr]
+					if not executable or vim.fn.executable(executable) ~= 1 then
+						goto continue
+					end
+
+					-- Check project requirements if specified
+					if formatter.requires and project_root ~= nil then
+						local has_requires = vim.iter(formatter.requires)
+							:map(function(item)
+								return project_root .. "/" .. item
+							end)
+							:any(function(item)
+								return vim.fn.filereadable(item) == 1
+							end)
+
+						if has_requires then
+							table.insert(formatters, formatter.name)
+						end
+					else
+						table.insert(formatters, formatter.name)
+					end
 				else
-					return nil
+					-- Backward compatibility: if it's just a string, add it
+					table.insert(formatters, formatter)
 				end
+				::continue::
+			end
+
+			if #formatters > 0 then
+				return { [lang] = formatters }
 			else
-				-- vim.print(content.conform)
-				return { [lang] = content.conform }
+				return nil
 			end
 		end)
 		:filter(function(data)

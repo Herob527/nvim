@@ -11,11 +11,11 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"dockerls",
+	{ name = "dockerls", package_manager = "npm" },
 }
 
 M.linter = {
-	"hadolint",
+	{ name = "hadolint", package_manager = "github" },
 }
 
 return M

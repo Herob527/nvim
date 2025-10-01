@@ -11,12 +11,12 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"bashls",
-	"fish_lsp",
+	{ name = "bashls", package_manager = "npm" },
+	{ name = "fish_lsp", package_manager = "npm" },
 }
 
 M.conform = {
-	"shfmt",
+	{ name = "shfmt", package_manager = "github" },
 }
 
 return M

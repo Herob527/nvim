@@ -26,16 +26,16 @@ M.lspconfig = {
 M.mason = {}
 
 M.mason.lspconfig = {
-	"yamlls",
-	"gitlab_ci_ls",
+	{ name = "yamlls", package_manager = "npm" },
+	{ name = "gitlab_ci_ls", package_manager = "npm" },
 }
 
 M.conform = {
-	-- "yamlfmt",
+	-- { name = "yamlfmt", package_manager = "github" },
 }
 
 M.linter = {
-	"yamllint",
+	{ name = "yamllint", package_manager = "pip" },
 }
 
 return M
