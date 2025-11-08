@@ -43,8 +43,7 @@ return {
 		"saghen/blink.cmp",
 	} },
 	priority = 700,
-	lazy = false,
-	event = { "BufReadPost", "BufNewFile" },
+	event = { "VeryLazy" },
 	cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 	config = function()
 		local langs = require("utils.langs_table").langs_iterator()
