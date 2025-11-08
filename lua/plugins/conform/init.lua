@@ -102,7 +102,6 @@ M.init = function()
 	end
 
 	formatters["dart"] = { lsp_format = "fallback" }
-	local test = formatters["typescript"]
 
 	require("conform").setup({
 		format_after_save = {
