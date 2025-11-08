@@ -1,6 +1,6 @@
 local M = {}
 
-M.lspconfig = { {} }
+M.lspconfig = {}
 
 M.mason = {}
 
