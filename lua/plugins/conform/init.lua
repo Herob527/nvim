@@ -104,7 +104,7 @@ M.init = function()
 	require("conform").setup({
 		format_after_save = {
 			timeout_ms = 500,
-			lsp_format = "fallback",
+			lsp_format = "never",
 		},
 		formatters_by_ft = formatters,
 		formatters = options,
