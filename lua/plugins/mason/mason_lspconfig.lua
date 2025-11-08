@@ -1,6 +1,5 @@
 local mason_lspconfig = {
 	"mason-org/mason-lspconfig.nvim",
-	lazy = false,
 	config = function()
 		local mason_lsp = require("mason-lspconfig")
 
