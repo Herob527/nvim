@@ -1,8 +1,10 @@
 local mason_lspconfig = {
-	"williamboman/mason-lspconfig.nvim",
-	event = "VeryLazy",
+	"mason-org/mason-lspconfig.nvim",
+	lazy = false,
 	config = function()
 		local mason_lsp = require("mason-lspconfig")
+
+		local mason_lspconfig_entries = {}
 
 		local package_manager_map = {
 			npm = "npm",
@@ -13,18 +15,12 @@ local mason_lspconfig = {
 		}
 
 		local langs = require("utils.langs_table").langs_iterator()
-		local mason_lspconfig_entries = {}
 		for data in langs do
 			for _, lspdata in pairs(data[2].mason.lspconfig or {}) do
-				if type(lspdata) == "table" then
-					local pkg_mgr = lspdata.package_manager
-					local executable = package_manager_map[pkg_mgr]
-					if executable and vim.fn.executable(executable) == 1 then
-						table.insert(mason_lspconfig_entries, lspdata.name)
-					end
-				else
-					-- Backward compatibility: if it's just a string, add it
-					table.insert(mason_lspconfig_entries, lspdata)
+				local pkg_mgr = lspdata.package_manager
+				local executable = package_manager_map[pkg_mgr]
+				if executable and vim.fn.executable(executable) == 1 then
+					table.insert(mason_lspconfig_entries, lspdata.name)
 				end
 			end
 		end
@@ -32,6 +28,7 @@ local mason_lspconfig = {
 		mason_lsp.setup({
 			ensure_installed = mason_lspconfig_entries,
 			automatic_installation = true,
+			automatic_enable = false,
 		})
 	end,
 	dependencies = {
@@ -46,8 +43,26 @@ return {
 		"saghen/blink.cmp",
 	} },
 	priority = 700,
+	lazy = false,
 	event = { "BufReadPost", "BufNewFile" },
 	cmd = { "LspInfo", "LspInstall", "LspUninstall" },
+	config = function()
+		local langs = require("utils.langs_table").langs_iterator()
+		for data in langs do
+			for _, lspconfig in pairs(data[2].lspconfig or {}) do
+				local lsp = lspconfig.lsp
+				local update_data = {}
+				if lspconfig.settings ~= nil then
+					update_data.settings = type(lspconfig.settings) == "function" and lspconfig.settings()
+						or lspconfig.settings
+				end
+				if vim.tbl_count(update_data) > 0 then
+					vim.lsp.config(lsp, update_data)
+				end
+				vim.lsp.enable(lsp)
+			end
+		end
+	end,
 	build = function()
 		local install_npm_package = require("utils.install_npm_package")
 		install_npm_package("@vue/typescript-plugin")
