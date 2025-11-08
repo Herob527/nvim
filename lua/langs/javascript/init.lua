@@ -61,6 +61,9 @@ M.lspconfig = {
 			"typescript.tsx",
 		},
 	},
+	{
+		lsp = "biome",
+	},
 }
 
 M.mason = {}
@@ -69,11 +72,20 @@ M.mason.lspconfig = {
 	{ name = "vtsls", package_manager = "npm" },
 	{ name = "oxlint", package_manager = "npm" },
 	{ name = "eslint", package_manager = "npm" },
+	{ name = "biome", package_manager = "npm" },
 }
 
 M.conform = {
-	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" }, package_manager = "npm" },
-	-- { name = "biome", requires = { "biome.json" }, package_manager = "github" },
+	{
+		name = "prettierd",
+		requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" },
+		package_manager = "npm",
+	},
+	{
+		name = "biome",
+		package_manager = "npm",
+		requires = { "biome.json" },
+	},
 }
 
 return M
