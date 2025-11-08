@@ -22,7 +22,7 @@ M.init = function()
 				return nil
 			end
 
-			local formatters = {}
+			local formatters = { lsp_format = "never" }
 			for _, formatter in ipairs(content.conform) do
 				if type(formatter) == "table" then
 					-- Check package manager executable
@@ -101,10 +101,12 @@ M.init = function()
 		formatters[lang] = { "xmlformatter" }
 	end
 
+	formatters["dart"] = { lsp_format = "fallback" }
+	local test = formatters["typescript"]
+
 	require("conform").setup({
 		format_after_save = {
 			timeout_ms = 500,
-			lsp_format = "never",
 		},
 		formatters_by_ft = formatters,
 		formatters = options,
