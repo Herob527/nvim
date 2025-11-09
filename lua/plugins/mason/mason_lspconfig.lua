@@ -54,6 +54,9 @@ return {
 					update_data.settings = type(lspconfig.settings) == "function" and lspconfig.settings()
 						or lspconfig.settings
 				end
+				if lspconfig.filetypes ~= nil then
+					update_data.filetypes = lspconfig.filetypes
+				end
 				if vim.tbl_count(update_data) > 0 then
 					vim.lsp.config(lsp, update_data)
 				end
