@@ -8,15 +8,9 @@ M.lspconfig = {
 	{ lsp = "astro" },
 	{
 		lsp = "eslint",
-		filetypes = {
-			"astro",
-		},
 	},
 	{
 		lsp = "oxlint",
-		filetypes = {
-			"astro",
-		},
 	},
 }
 
@@ -28,7 +22,11 @@ M.mason.lspconfig = {
 }
 
 M.conform = {
-	{ name = "prettierd", requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" }, package_manager = "npm" },
+	{
+		name = "prettierd",
+		requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" },
+		package_manager = "npm",
+	},
 	{ name = "rustywind", package_manager = "npm" },
 }
 

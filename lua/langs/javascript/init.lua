@@ -4,11 +4,34 @@ M.filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact"
 
 M.treesitter = { "javascript", "typescript", "tsx", "jsdoc" }
 
+local vue_plugin_path = vim.fn.stdpath("data") .. "/npm_packages" .. "/node_modules/@vue/typescript-plugin"
+
 M.lspconfig = {
 	{
 		lsp = "vtsls",
+
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"vue",
+		},
 		settings = {
 			vtsls = {
+				tsserver = {
+					globalPlugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_plugin_path,
+							languages = { "typescript", "javascript", "vue" },
+							enableForWorkspaceTypeScriptVersions = true,
+							configNamespace = "typescript",
+						},
+					},
+				},
 				experimental = {
 					maxInlayHintLength = 30,
 					completion = {
@@ -47,6 +70,7 @@ M.lspconfig = {
 			"typescript",
 			"typescriptreact",
 			"typescript.tsx",
+			"vue",
 		},
 	},
 
