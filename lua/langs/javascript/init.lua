@@ -71,6 +71,7 @@ M.lspconfig = {
 			"typescriptreact",
 			"typescript.tsx",
 			"vue",
+			"astro",
 		},
 	},
 
@@ -83,6 +84,7 @@ M.lspconfig = {
 			"typescript",
 			"typescriptreact",
 			"typescript.tsx",
+			"astro",
 		},
 	},
 	{
