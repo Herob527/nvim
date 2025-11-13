@@ -39,7 +39,6 @@ local lazyinstalls = {
 	require("plugins.tsc.init").config,
 	require("plugins.haskell_tools.init").config,
 	require("plugins.inlay_hints.init").config,
-	require("plugins.bigfile.init").config,
 	require("plugins.eyeliner.init").config,
 	require("plugins.neocodeium.init").config,
 	require("plugins.mason.mason_lspconfig"),
