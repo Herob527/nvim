@@ -185,7 +185,7 @@ M.config = {
 			-- 	enabled = true,
 			-- },
 			menu = {
-				border = "double",
+				border = "rounded",
 				draw = {
 					components = {
 						kind_icon = {
@@ -220,7 +220,7 @@ M.config = {
 					},
 				},
 			},
-			documentation = { auto_show = true, window = { border = "double" } },
+			documentation = { auto_show = true, window = { border = "rounded" } },
 		},
 		cmdline = {
 			keymap = {
