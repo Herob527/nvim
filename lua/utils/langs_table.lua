@@ -22,6 +22,7 @@ local langs_codes = {
 	"haskell",
 	"cs",
 	"xml",
+	"toml",
 }
 
 M.langs_iterator = function()
