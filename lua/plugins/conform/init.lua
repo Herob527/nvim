@@ -102,6 +102,7 @@ M.init = function()
 	end
 
 	formatters["dart"] = { lsp_format = "fallback" }
+	formatters["toml"] = { lsp_format = "fallback" }
 
 	require("conform").setup({
 		format_after_save = {
