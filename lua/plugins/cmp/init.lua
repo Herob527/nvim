@@ -108,7 +108,7 @@ local ripgrep = {
 			on_off = nil,
 		},
 		backend = {
-			use = "ripgrep",
+			use = "gitgrep-or-ripgrep",
 			context_size = 5,
 			project_root_fallback = true,
 			additional_rg_options = {},
