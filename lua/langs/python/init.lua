@@ -3,14 +3,14 @@ local M = {}
 M.treesitter = { "python" }
 
 M.lspconfig = {
-	{ lsp = "pyrefly" },
+	{ lsp = "pyright" },
 	{ lsp = "ruff" },
 }
 
 M.mason = {}
 
 M.mason.lspconfig = {
-	{ name = "pyrefly", package_manager = "npm" },
+	{ name = "pyright", package_manager = "npm" },
 	{ name = "ruff", package_manager = "pip" },
 }
 
