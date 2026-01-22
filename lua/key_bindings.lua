@@ -16,7 +16,7 @@ vim.keymap.set({ "n" }, "<leader>ef", function()
 			return client.name ~= "vtsls"
 		end)
 		:each(function(client)
-			vim.cmd("silent exec ':LspRestart " .. client.name .. "'")
+			vim.cmd("silent exec ':lsp restart " .. client.name .. "'")
 		end)
 	vim.diagnostic.reset()
 end, { desc = "Reset LSP and diagnostics", silent = true })
