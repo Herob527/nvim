@@ -5,7 +5,7 @@ M.init = function()
 end
 
 M.config = {
-	"ggandor/leap.nvim",
+	"https://codeberg.org/andyg/leap.nvim",
 	keys = { { "s" }, { "S" }, { "f" }, { "F" } },
 	dependencies = {
 		"tpope/vim-repeat",
