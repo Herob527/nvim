@@ -82,6 +82,7 @@ M.config = {
 	build = function()
 		vim.cmd([[:TSUpdate]])
 	end,
+	branch = "master",
 	event = "VeryLazy",
 	dependencies = {
 		"windwp/nvim-ts-autotag",
