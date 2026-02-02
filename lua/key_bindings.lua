@@ -4,7 +4,13 @@ end, { desc = "Trigger [h]over [a]ction" })
 
 local restart_command = function()
 	local nvim_version = vim.version.parse(vim.system({ "nvim", "-v" }):wait().stdout)
-	if vim.version.lt(nvim_version, { 0, 12, 0 }) then
+	local nvim_version_new_lsp = vim.version.parse("0.12.0")
+	local has_lsp_restart = vim.version.lt(
+		{ nvim_version.major, nvim_version.minor, nvim_version.patch },
+		{ nvim_version_new_lsp.major, nvim_version_new_lsp.minor, nvim_version_new_lsp.patch }
+	)
+
+	if has_lsp_restart then
 		return ":LspRestart"
 	else
 		return ":lsp restart"
