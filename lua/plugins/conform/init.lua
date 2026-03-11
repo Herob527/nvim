@@ -103,14 +103,16 @@ M.init = function()
 
 	formatters["dart"] = { lsp_format = "fallback" }
 	formatters["toml"] = { lsp_format = "fallback" }
-
-	require("conform").setup({
+	formatters["csharp"] = formatters["cs"]
+	local config = {
 		format_after_save = {
 			timeout_ms = 500,
 		},
 		formatters_by_ft = formatters,
 		formatters = options,
-	})
+	}
+
+	require("conform").setup(config)
 end
 
 M.config = {
