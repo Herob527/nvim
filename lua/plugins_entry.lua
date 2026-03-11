@@ -55,6 +55,27 @@ local lazyinstalls = {
 	require("plugins.claudecode.init").config,
 	require("plugins.remote_nvim.init").config,
 	require("plugins.roslyn.init").config,
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"nsidorenco/neotest-vstest",
+		},
+		config = function()
+			require("neotest").setup({
+				summary = {
+					open = "botright vsplit | vertical resize 80",
+				},
+				adapters = {
+					require("neotest-vstest"),
+				},
+			})
+		end,
+		event = "VeryLazy",
+	},
 }
 
 local opts = {
