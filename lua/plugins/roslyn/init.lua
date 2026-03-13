@@ -3,7 +3,7 @@ local M = {}
 M.config = {
 	"GustavEikaas/easy-dotnet.nvim",
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-	event = "VeryLazy",
+	ft = { "cs" },
 	config = function()
 		require("easy-dotnet").setup()
 	end,
