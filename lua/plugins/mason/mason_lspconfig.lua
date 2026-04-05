@@ -57,6 +57,9 @@ return {
 				if lspconfig.filetypes ~= nil then
 					update_data.filetypes = lspconfig.filetypes
 				end
+				if lspconfig.on_init ~= nil then
+					update_data.on_init = lspconfig.on_init
+				end
 				if vim.tbl_count(update_data) > 0 then
 					vim.lsp.config(lsp, update_data)
 				end
