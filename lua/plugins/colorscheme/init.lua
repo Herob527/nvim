@@ -47,7 +47,7 @@ M.init = function()
 	})
 
 	-- setup must be called before loading
-	vim.cmd.colorscheme("catppuccin")
+	vim.cmd.colorscheme("catppuccin-nvim")
 end
 
 M.config = { "catppuccin/nvim", name = "catppuccin", priority = 1000, lazy = false, config = M.init }
