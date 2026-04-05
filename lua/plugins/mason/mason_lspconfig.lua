@@ -64,8 +64,4 @@ return {
 			end
 		end
 	end,
-	build = function()
-		local install_npm_package = require("utils.install_npm_package")
-		install_npm_package("@vue/typescript-plugin")
-	end,
 }
