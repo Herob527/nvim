@@ -76,6 +76,13 @@ local lazyinstalls = {
 		end,
 		event = "VeryLazy",
 	},
+	{
+		"3rd/image.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("image").setup()
+		end,
+	},
 }
 
 local opts = {
