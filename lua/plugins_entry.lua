@@ -38,7 +38,6 @@ local lazyinstalls = {
 	require("plugins.vtsls.init").config,
 	require("plugins.tsc.init").config,
 	require("plugins.haskell_tools.init").config,
-	require("plugins.inlay_hints.init").config,
 	-- require("plugins.eyeliner.init").config,
 	require("plugins.neocodeium.init").config,
 	require("plugins.mason.mason_lspconfig"),
@@ -83,6 +82,8 @@ local lazyinstalls = {
 			require("image").setup()
 		end,
 	},
+
+	{ "yochem/jq-playground.nvim", event = "VeryLazy" },
 }
 
 local opts = {
