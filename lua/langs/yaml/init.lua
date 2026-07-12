@@ -35,7 +35,7 @@ M.conform = {
 }
 
 M.linter = {
-	{ name = "yamllint", package_manager = "pip" },
+	-- { name = "yamllint", package_manager = "pip" },
 }
 
 return M
