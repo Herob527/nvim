@@ -231,8 +231,8 @@ M.config = {
 		},
 		snippets = { preset = "luasnip" },
 		sources = {
-			default = { "snippets", "lsp", "path", "buffer", "npm", "dictionary", "ripgrep" },
-			providers = { snippets = snippets, lsp = lsp, ripgrep = ripgrep, npm = npm, dictionary = dictionary },
+			default = { "snippets", "lsp", "path", "buffer", "npm", "dictionary" },
+			providers = { snippets = snippets, lsp = lsp, npm = npm, dictionary = dictionary },
 		},
 
 		fuzzy = { implementation = "prefer_rust" },
