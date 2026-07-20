@@ -91,12 +91,11 @@ M.init = function()
 
 	local xml_langs = { "xml", "svg" }
 
-	local tailwind_langs = { "html", "javascriptreact", "typescriptreact" }
+	local markdown_langs = { "markdown.mdx", "markdown.gfm", "mdx" }
 
-	for _, lang in ipairs(tailwind_langs) do
-		-- table.insert(formatters[lang] or {}, "rustywind")
+	for _, lang in ipairs(markdown_langs) do
+		formatters[lang] = formatters["markdown"]
 	end
-
 	for _, lang in ipairs(xml_langs) do
 		formatters[lang] = { "xmlformatter" }
 	end
