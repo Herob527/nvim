@@ -5,7 +5,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 
 local format = [[
 ---
-interface Props = {{}}
+interface Props {{}}
 ---
 <{entry}
 ]]
