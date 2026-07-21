@@ -84,6 +84,12 @@ local lazyinstalls = {
 	},
 
 	{ "yochem/jq-playground.nvim", event = "VeryLazy" },
+	{
+		"davidmh/mdx.nvim",
+		filetypes = { "mdx" },
+		event = "VeryLazy",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+	},
 }
 
 local opts = {
