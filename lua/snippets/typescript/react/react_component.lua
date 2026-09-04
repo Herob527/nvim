@@ -7,16 +7,10 @@ local d = luasnip.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 local react_boilerplate = sn(
-	"FunComBoi",
+	"FCB",
 	fmt(
 		[[
-import React from 'react';
-
-interface Props {{
-
-}}
-
-const {name} = ({{}}: Props) => {{
+const {name} = () => {{
   {}
 }};
 
