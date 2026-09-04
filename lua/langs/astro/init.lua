@@ -27,6 +27,7 @@ M.conform = {
 		requires = { ".prettierrc", ".prettierrc.json", "prettier.config.mjs" },
 		package_manager = "npm",
 	},
+	{ name = "biome", package_manager = "npm" },
 	{ name = "rustywind", package_manager = "npm" },
 }
 

@@ -74,6 +74,14 @@ M.lspconfig = {
 	},
 	{
 		lsp = "biome",
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+		},
 	},
 }
 
@@ -96,6 +104,9 @@ M.conform = {
 		name = "biome",
 		package_manager = "npm",
 		requires = { "biome.json" },
+	},
+	{
+		name = "oxfmt",
 	},
 }
 
