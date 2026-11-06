@@ -231,7 +231,7 @@ M.config = {
 		},
 		snippets = { preset = "luasnip" },
 		sources = {
-			default = { "snippets", "lsp", "path", "ripgrep", "buffer", "npm", "dictionary" },
+			default = { "snippets", "lsp", "path", "buffer", "npm", "dictionary" },
 			providers = { snippets = snippets, lsp = lsp, npm = npm, dictionary = dictionary, ripgrep = ripgrep },
 		},
 
